@@ -1,0 +1,95 @@
+<?php
+/**
+ * Ejecutor principal de los checks locales.
+ *
+ * @package WPVitals
+ */
+
+declare( strict_types=1 );
+
+namespace WPVitals;
+
+use WPVitals\Checks\CheckInterface;
+
+/**
+ * Registra y ejecuta los checks locales de forma aislada.
+ *
+ * Un fallo individual de un check nunca interrumpe el escaneo completo:
+ * el checker lo convierte en un Result con severidad SEVERITY_ERROR.
+ */
+final class Checker {
+
+	/**
+	 * Checks registrados, indexados por identificador.
+	 *
+	 * @var CheckInterface[]
+	 */
+	private $checks = array();
+
+	/**
+	 * Registra un check en el runner.
+	 *
+	 * @param CheckInterface $check Check a registrar.
+	 *
+	 * @throws \LogicException Si el identificador del check ya está registrado.
+	 */
+	public function add_check( CheckInterface $check ): void {
+		$id = $check->get_id();
+
+		if ( isset( $this->checks[ $id ] ) ) {
+			throw new \LogicException( 'El check con id "' . esc_html( $id ) . '" ya está registrado.' );
+		}
+
+		$this->checks[ $id ] = $check;
+	}
+
+	/**
+	 * Devuelve el número de checks registrados.
+	 *
+	 * @return int
+	 */
+	public function count(): int {
+		return count( $this->checks );
+	}
+
+	/**
+	 * Ejecuta todos los checks registrados y devuelve sus resultados.
+	 *
+	 * @return Result[]
+	 */
+	public function run_all(): array {
+		$results = array();
+
+		foreach ( $this->checks as $check ) {
+			$results[] = $this->run_single( $check );
+		}
+
+		return $results;
+	}
+
+	/**
+	 * Ejecuta un check capturando cualquier error que pueda producirse.
+	 *
+	 * @param CheckInterface $check Check a ejecutar.
+	 *
+	 * @return Result
+	 */
+	private function run_single( CheckInterface $check ): Result {
+		try {
+			return $check->run();
+		} catch ( \Throwable $e ) {
+			return new Result(
+				$check->get_id(),
+				$check->get_title(),
+				Result::SEVERITY_ERROR,
+				null,
+				sprintf(
+					/* translators: %s: mensaje del error interno del check. */
+					__( 'Error interno del check: %s', 'wpvitals' ),
+					$e->getMessage()
+				),
+				0
+			);
+		}
+	}
+}
