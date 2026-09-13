@@ -1,0 +1,38 @@
+services:
+  # DB Server
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: wordpress_dev
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: wp_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # 2. Wordpress Server
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress_dev
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: wp_password
+    volumes:
+      - ../:/var/www/html/wp-content/plugins/wpvitals
+
+  # 3. Tooling
+  composer:
+    image: composer:latest
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ../:/app
+    working_dir: /app
+
+volumes:
+  db_data:

@@ -22,7 +22,56 @@ Esta plataforma comprobará aspectos clave de tu instalación WordPress, incluye
 
 ## ¿Cómo instalarlo?
 
-*(Instrucciones de instalación detalladas se añadirán aquí en el futuro.)*
+### Entorno Local de Desarrollo (Docker)
+
+Para iniciar el entorno local con Docker Compose:
+
+```bash
+cd docker
+docker compose up -d
+```
+
+WordPress estará disponible en `http://localhost:8080`. El plugin se monta automáticamente en `wp-content/plugins/wpvitals`.
+
+#### Procedimiento para detener el entorno local:
+```bash
+cd docker
+docker compose down
+```
+
+#### Procedimiento para reiniciar el entorno local:
+```bash
+cd docker
+docker compose restart
+```
+
+## Calidad y herramientas de desarrollo
+
+Las dependencias de desarrollo (PHPUnit, PHPCS y WordPress Coding Standards) se gestionan con Composer a través del contenedor `composer`:
+
+```bash
+# Instalar/actualizar dependencias
+make composer-install
+
+# Verificar estándares de código (PHPCS)
+make lint
+
+# Corregir automáticamente errores de formato (PHPCBF)
+make lint:fix
+
+# Ejecutar tests unitarios (PHPUnit)
+make test
+```
+
+Alternativamente, los mismos comandos se pueden ejecutar dentro de `docker/` con Docker Compose:
+
+```bash
+docker compose run --rm composer install
+docker compose run --rm composer run lint
+docker compose run --rm composer run test
+```
+
+El estándar de código está configurado en `phpcs.xml.dist` (WordPress Coding Standards, excluyendo `vendor/`, `docker/` y `tests/`) y la base de PHPUnit en `phpunit.xml.dist`.
 
 ## ¿Cómo contribuir?
 
