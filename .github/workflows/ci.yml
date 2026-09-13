@@ -42,3 +42,26 @@ jobs:
 
       - name: Run PHPUnit
         run: composer run test
+      
+      - name: Generate Summary
+        if: always()
+        run: |
+          {
+            echo "# CI Quality Report"
+            echo ""
+            echo "## ${{ job.status == 'success' && 'Pipeline passed' || '❌ Pipeline failed' }}"
+            echo ""
+            echo "| Check | Status |"
+            echo "|---|---|"
+            echo "| Composer validation | ${{ job.status == 'success' && 'Passed' || '❌ Failed' }} |"
+            echo "| PHPCS | ${{ job.status == 'success' && 'Passed' || '❌ Failed' }} |"
+            echo "| PHPUnit | ${{ job.status == 'success' && 'Passed' || '❌ Failed' }} |"
+            echo ""
+            echo "### Environment"
+            echo ""
+            echo "| PHP | OS |"
+            echo "|---|---|"
+            echo "| `${{ matrix.php }}` | `${{ runner.os }}` |"
+            echo ""
+            echo "> Automated quality checks for this build."
+          } >> "$GITHUB_STEP_SUMMARY"
