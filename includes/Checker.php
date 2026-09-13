@@ -10,6 +10,7 @@ declare( strict_types=1 );
 namespace WPVitals;
 
 use WPVitals\Checks\CheckInterface;
+use WPVitals\Checks\MultiCheckInterface;
 
 /**
  * Registra y ejecuta los checks locales de forma aislada.
@@ -61,6 +62,11 @@ final class Checker {
 		$results = array();
 
 		foreach ( $this->checks as $check ) {
+			if ( $check instanceof MultiCheckInterface ) {
+				$results = array_merge( $results, $this->run_many_safe( $check ) );
+				continue;
+			}
+
 			$results[] = $this->run_single( $check );
 		}
 
@@ -78,18 +84,63 @@ final class Checker {
 		try {
 			return $check->run();
 		} catch ( \Throwable $e ) {
-			return new Result(
-				$check->get_id(),
-				$check->get_title(),
-				Result::SEVERITY_ERROR,
-				null,
-				sprintf(
-					/* translators: %s: mensaje del error interno del check. */
-					__( 'Error interno del check: %s', 'wpvitals' ),
-					$e->getMessage()
-				),
-				0
-			);
+			return $this->error_result( $check, $e );
 		}
+	}
+
+	/**
+	 * Ejecuta un check multi-resultado y valida que sus hallazgos sean Results.
+	 *
+	 * @param MultiCheckInterface $check Check a ejecutar.
+	 *
+	 * @return Result[]
+	 */
+	private function run_many_safe( MultiCheckInterface $check ): array {
+		try {
+			$results = $check->run_many();
+
+			return array_map(
+				function ( $result ) use ( $check ): Result {
+					if ( ! $result instanceof Result ) {
+						return new Result(
+							$check->get_id(),
+							$check->get_title(),
+							Result::SEVERITY_ERROR,
+							null,
+							__( 'El check devolvió un resultado inválido.', 'wpvitals' ),
+							0
+						);
+					}
+
+					return $result;
+				},
+				array_values( $results )
+			);
+		} catch ( \Throwable $e ) {
+			return array( $this->error_result( $check, $e ) );
+		}
+	}
+
+	/**
+	 * Construye un Result de error a partir de la excepción capturada.
+	 *
+	 * @param CheckInterface $check Check que falló.
+	 * @param \Throwable     $e     Excepción capturada.
+	 *
+	 * @return Result
+	 */
+	private function error_result( CheckInterface $check, \Throwable $e ): Result {
+		return new Result(
+			$check->get_id(),
+			$check->get_title(),
+			Result::SEVERITY_ERROR,
+			null,
+			sprintf(
+				/* translators: %s: mensaje del error interno del check. */
+				__( 'Error interno del check: %s', 'wpvitals' ),
+				$e->getMessage()
+			),
+			0
+		);
 	}
 }
