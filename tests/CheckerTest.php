@@ -7,7 +7,9 @@ use PHPUnit\Framework\TestCase;
 use WPVitals\Checker;
 use WPVitals\Result;
 use WPVitals\Tests\Checks\BrokenCheck;
+use WPVitals\Tests\Checks\BrokenMultiCheck;
 use WPVitals\Tests\Checks\DuplicateIdCheck;
+use WPVitals\Tests\Checks\MultiOkCheck;
 use WPVitals\Tests\Checks\OkCheck;
 
 final class CheckerTest extends TestCase {
@@ -70,5 +72,35 @@ final class CheckerTest extends TestCase {
 
 		$this->assertSame( 'test/ok', $result->get_id() );
 		$this->assertSame( 'Check que pasa', $result->get_title() );
+	}
+
+	public function test_aplana_checks_multi_resultado(): void {
+		$checker = new Checker();
+
+		$checker->add_check( new MultiOkCheck() );
+
+		$results = $checker->run_all();
+
+		$this->assertCount( 2, $results );
+		foreach ( $results as $result ) {
+			$this->assertInstanceOf( Result::class, $result );
+			$this->assertTrue( $result->is_ok() );
+		}
+	}
+
+	public function test_error_multi_aislado_sin_interrumpir(): void {
+		$checker = new Checker();
+
+		$checker->add_check( new MultiOkCheck() );
+		$checker->add_check( new BrokenMultiCheck() );
+
+		$results = $checker->run_all();
+
+		$this->assertCount( 3, $results );
+		$this->assertTrue( $results[0]->is_ok() );
+		$this->assertTrue( $results[1]->is_ok() );
+		$this->assertSame( Result::SEVERITY_ERROR, $results[2]->get_severity() );
+		$this->assertSame( 0, $results[2]->get_points_deducted() );
+		$this->assertStringContainsString( 'Fallo multi simulado', $results[2]->get_recommendation() );
 	}
 }
