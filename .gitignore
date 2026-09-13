@@ -1,0 +1,16 @@
+# Composer dependencies
+/vendor/
+composer.lock
+
+# Tests and coverage
+/.phpunit.result.cache
+/coverage/
+
+# Loval Env
+*.log
+
+# IDE and system files
+/.idea/
+/.vscode/
+*.swp
+.DS_Store
