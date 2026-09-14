@@ -5,71 +5,122 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to publish (for example, v0.1.0)
+        required: true
+        type: string
 
 permissions:
   contents: write
 
 jobs:
-  build:
-    name: Build plugin zip and publish release
+  release:
+    name: Build and publish plugin ZIP
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
+    env:
+      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
 
-      - name: Extract version from tag
-        id: version
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+          fetch-depth: 0
+
+      - name: Validate release tag
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
-          echo "Tag: v${VERSION}"
+          set -euo pipefail
+
+          if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Release tag must use the vX.Y.Z format: ${RELEASE_TAG}"
+            exit 1
+          fi
+
+          VERSION="${RELEASE_TAG#v}"
+          echo "VERSION=${VERSION}" >> "${GITHUB_ENV}"
+          echo "Publishing ${RELEASE_TAG} (version ${VERSION})"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.5
+          php-version: '8.5'
           tools: composer:v2
           coverage: none
 
       - name: Validate version consistency
         run: |
-          FILE_VERSION="$(grep -oP "define\( 'WPVITALS_VERSION', '\K[0-9.]+(?=')" wpvitals.php)"
-          echo "Header version: ${FILE_VERSION}"
-          echo "Tag version:    ${{ steps.version.outputs.version }}"
-          if [ "${FILE_VERSION}" != "${{ steps.version.outputs.version }}" ]; then
-            echo "::error::Version in wpvitals.php (${FILE_VERSION}) does not match tag (${{ steps.version.outputs.version }})"
+          set -euo pipefail
+
+          FILE_VERSION="$(sed -n "s/^[[:space:]]*define( 'WPVITALS_VERSION', '\([^']*\)'.*/\1/p" wpvitals.php | head -n 1)"
+          README_VERSION="$(sed -n 's/^Stable tag: *//p' readme.txt | head -n 1)"
+
+          echo "Plugin version: ${FILE_VERSION}"
+          echo "Readme version: ${README_VERSION}"
+          echo "Tag version:    ${VERSION}"
+
+          if [[ -z "${FILE_VERSION}" || "${FILE_VERSION}" != "${VERSION}" ]]; then
+            echo "::error::wpvitals.php version does not match ${RELEASE_TAG}"
+            exit 1
+          fi
+
+          if [[ "${README_VERSION}" != "${VERSION}" ]]; then
+            echo "::error::readme.txt Stable tag does not match ${RELEASE_TAG}"
             exit 1
           fi
 
       - name: Install production dependencies
-        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --classmap-authoritative
+        run: composer install --no-dev --no-interaction --no-progress --prefer-dist --optimize-autoloader --classmap-authoritative
 
       - name: Stage plugin files
         run: |
+          set -euo pipefail
+
+          rm -rf staging
           mkdir -p staging/wpvitals
-          rsync -a wpvitals.php includes/ admin/ assets/ languages/ vendor/ readme.txt LICENSE staging/wpvitals/
-          rsync -a readme.txt staging/wpvitals/
-          echo "=== Staged files ==="
-          find staging/wpvitals -maxdepth 2 -type d | sort
+          rsync -a --no-owner --no-group \
+            wpvitals.php \
+            readme.txt \
+            LICENSE \
+            staging/wpvitals/
+          rsync -a --no-owner --no-group \
+            includes \
+            admin \
+            assets \
+            languages \
+            vendor \
+            staging/wpvitals/
 
-      - name: Build zip
+          test -f staging/wpvitals/wpvitals.php
+          test -f staging/wpvitals/vendor/autoload.php
+          test -f staging/wpvitals/readme.txt
+          test -f staging/wpvitals/LICENSE
+
+      - name: Build and verify ZIP
+        env:
+          ZIP_PATH: wpvitals-${{ env.VERSION }}.zip
         run: |
-          cd staging
-          zip -r "wpvitals-${{ steps.version.outputs.version }}.zip" wpvitals
-          echo "=== Zip contents (top level) ==="
-          unzip -l "wpvitals-${{ steps.version.outputs.version }}.zip" | head -15
-          mv "wpvitals-${{ steps.version.outputs.version }}.zip" ../
+          set -euo pipefail
 
-      - name: Upload zip as artifact
+          (cd staging && zip -qr "../${ZIP_PATH}" wpvitals)
+          unzip -t "${ZIP_PATH}"
+
+          if ! unzip -Z1 "${ZIP_PATH}" | grep -q '^wpvitals/wpvitals.php$'; then
+            echo "::error::The ZIP does not contain wpvitals/wpvitals.php"
+            exit 1
+          fi
+
+          echo "Built ${ZIP_PATH} ($(du -h "${ZIP_PATH}" | cut -f1))"
+
+      - name: Upload ZIP artifact
         uses: actions/upload-artifact@v7
         with:
-          name: wpvitals-${{ steps.version.outputs.version }}-zip
-          path: wpvitals-${{ steps.version.outputs.version }}.zip
+          name: wpvitals-${{ env.VERSION }}-zip
+          path: wpvitals-${{ env.VERSION }}.zip
           if-no-files-found: error
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3
-        with:
-          files: wpvitals-${{ steps.version.outputs.version }}.zip
-          generate_release_notes: true
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${RELEASE_TAG}" "wpvitals-${VERSION}.zip" --verify-tag --generate-notes --title "WPVitals ${VERSION}"
