@@ -25,6 +25,7 @@ services:
       WORDPRESS_DB_PASSWORD: wp_password
     volumes:
       - ../:/var/www/html/wp-content/plugins/wpvitals
+      - ../wp-content/plugins:/var/www/html/wp-content/plugins
 
   # 3. Tooling
   composer:
