@@ -20,10 +20,10 @@ $wpvitals_restore = isset( $wpvitals_restore ) ? (bool) $wpvitals_restore : fals
 <table class="wpvitals-table">
 	<thead>
 		<tr>
-			<th scope="col"><?php esc_html_e( 'Hallazgo', 'wpvitals' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Descripción', 'wpvitals' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Severidad', 'wpvitals' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Acción', 'wpvitals' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Finding', 'wpvitals' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Description', 'wpvitals' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Severity', 'wpvitals' ); ?></th>
+			<th scope="col"><?php esc_html_e( 'Action', 'wpvitals' ); ?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,8 +31,8 @@ $wpvitals_restore = isset( $wpvitals_restore ) ? (bool) $wpvitals_restore : fals
 			<?php
 			$wpvitals_points_tip = $wpvitals_finding['points'] > 0
 				? sprintf(
-					/* translators: %d: puntos descontados del Health Score. */
-					__( '-%d puntos', 'wpvitals' ),
+					/* translators: %d: points deducted from the Health Score. */
+					__( '-%d points', 'wpvitals' ),
 					$wpvitals_finding['points']
 				)
 				: '';
@@ -60,24 +60,24 @@ $wpvitals_restore = isset( $wpvitals_restore ) ? (bool) $wpvitals_restore : fals
 				<td class="wpvitals-action-col">
 					<?php if ( $wpvitals_restore ) : ?>
 						<a class="wpvitals-ignore-link" href="<?php echo esc_url( \WPVitals\Admin\AdminPage::toggle_ignored_url( \WPVitals\Admin\AdminPage::UNIGNORE_ACTION, $wpvitals_finding['id'] ) ); ?>">
-							<?php esc_html_e( 'Restaurar', 'wpvitals' ); ?>
+							<?php esc_html_e( 'Restore', 'wpvitals' ); ?>
 						</a>
 					<?php else : ?>
 						<?php if ( '' !== $wpvitals_finding['link'] ) : ?>
 							<a class="wpvitals-action-link" href="<?php echo esc_url( $wpvitals_finding['link'] ); ?>" target="_blank" rel="noreferrer noopener">
-								<?php esc_html_e( 'Ver fuente', 'wpvitals' ); ?>
+								<?php esc_html_e( 'View source', 'wpvitals' ); ?>
 							</a>
 						<?php elseif ( null !== $wpvitals_finding['screen'] ) : ?>
 							<a class="wpvitals-action-link" href="<?php echo esc_url( \WPVitals\Admin\AdminPage::screen_url( $wpvitals_finding['screen'] ) ); ?>">
 								<?php echo esc_html( \WPVitals\Admin\AdminPage::screen_label( $wpvitals_finding['screen'] ) ); ?>
 							</a>
 						<?php elseif ( ! $wpvitals_finding['is_ok'] ) : ?>
-							<span class="wpvitals-action-disabled"><?php esc_html_e( 'Sin acción disponible', 'wpvitals' ); ?></span>
+							<span class="wpvitals-action-disabled"><?php esc_html_e( 'No action available', 'wpvitals' ); ?></span>
 						<?php endif; ?>
 						<?php if ( ! $wpvitals_finding['is_ok'] && ! $wpvitals_is_group ) : ?>
 							<br />
 							<a class="wpvitals-ignore-link" href="<?php echo esc_url( \WPVitals\Admin\AdminPage::toggle_ignored_url( \WPVitals\Admin\AdminPage::IGNORE_ACTION, $wpvitals_finding['id'] ) ); ?>">
-								<?php esc_html_e( 'Ignorar', 'wpvitals' ); ?>
+								<?php esc_html_e( 'Ignore', 'wpvitals' ); ?>
 							</a>
 						<?php endif; ?>
 					<?php endif; ?>
@@ -87,14 +87,14 @@ $wpvitals_restore = isset( $wpvitals_restore ) ? (bool) $wpvitals_restore : fals
 				<tr class="wpvitals-sub-row">
 					<td colspan="4">
 						<details class="wpvitals-sub-list">
-							<summary><?php esc_html_e( 'Click para desglose', 'wpvitals' ); ?></summary>
+							<summary><?php esc_html_e( 'Click for details', 'wpvitals' ); ?></summary>
 							<ul class="wpvitals-sub-list-items">
 								<?php foreach ( $wpvitals_finding['vulnerabilities'] as $wpvitals_child ) : ?>
 									<?php
 									$wpvitals_child_points_tip = $wpvitals_child['points'] > 0
 										? sprintf(
-											/* translators: %d: puntos descontados del Health Score. */
-											__( '-%d puntos', 'wpvitals' ),
+											/* translators: %d: points deducted from the Health Score. */
+											__( '-%d points', 'wpvitals' ),
 											$wpvitals_child['points']
 										)
 										: '';
@@ -115,16 +115,16 @@ $wpvitals_restore = isset( $wpvitals_restore ) ? (bool) $wpvitals_restore : fals
 										<span class="wpvitals-sub-actions">
 											<?php if ( '' !== $wpvitals_child['link'] ) : ?>
 												<a class="wpvitals-action-link" href="<?php echo esc_url( $wpvitals_child['link'] ); ?>" target="_blank" rel="noreferrer noopener">
-													<?php esc_html_e( 'Ver fuente', 'wpvitals' ); ?>
+													<?php esc_html_e( 'View source', 'wpvitals' ); ?>
 												</a>
 											<?php endif; ?>
 											<?php if ( $wpvitals_restore ) : ?>
 												<a class="wpvitals-ignore-link" href="<?php echo esc_url( \WPVitals\Admin\AdminPage::toggle_ignored_url( \WPVitals\Admin\AdminPage::UNIGNORE_ACTION, $wpvitals_child['id'] ) ); ?>">
-													<?php esc_html_e( 'Restaurar', 'wpvitals' ); ?>
+													<?php esc_html_e( 'Restore', 'wpvitals' ); ?>
 												</a>
 											<?php elseif ( ! $wpvitals_child['is_ok'] ) : ?>
 												<a class="wpvitals-ignore-link" href="<?php echo esc_url( \WPVitals\Admin\AdminPage::toggle_ignored_url( \WPVitals\Admin\AdminPage::IGNORE_ACTION, $wpvitals_child['id'] ) ); ?>">
-													<?php esc_html_e( 'Ignorar', 'wpvitals' ); ?>
+													<?php esc_html_e( 'Ignore', 'wpvitals' ); ?>
 												</a>
 											<?php endif; ?>
 										</span>

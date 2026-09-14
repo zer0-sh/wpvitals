@@ -26,27 +26,27 @@ $wpvitals_values = array_merge(
 <div class="wrap wpvitals-wrap">
 	<?php if ( 'ok' === $data['notice'] ) : ?>
 		<div class="notice notice-success is-dismissible inline">
-			<p><?php esc_html_e( 'Escaneo completado correctamente.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'Scan completed successfully.', 'wpvitals' ); ?></p>
 		</div>
 	<?php elseif ( 'error' === $data['notice'] ) : ?>
 		<div class="notice notice-error inline">
-			<p><?php esc_html_e( 'El escaneo falló. Reinténtalo en unos segundos.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'The scan failed. Try again in a few seconds.', 'wpvitals' ); ?></p>
 		</div>
 	<?php elseif ( 'busy' === $data['notice'] ) : ?>
 		<div class="notice notice-warning inline">
-			<p><?php esc_html_e( 'Ya hay un escaneo en curso.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'A scan is already in progress.', 'wpvitals' ); ?></p>
 		</div>
 	<?php elseif ( 'ignored' === $data['notice'] ) : ?>
 		<div class="notice notice-info is-dismissible inline">
-			<p><?php esc_html_e( 'El hallazgo se ha movido a la sección de ignorados.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'The finding has been moved to the ignored section.', 'wpvitals' ); ?></p>
 		</div>
 	<?php elseif ( 'restored' === $data['notice'] ) : ?>
 		<div class="notice notice-success is-dismissible inline">
-			<p><?php esc_html_e( 'El hallazgo se ha restaurado y vuelve a contar en el diagnóstico.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'The finding has been restored and counts again in the diagnosis.', 'wpvitals' ); ?></p>
 		</div>
 	<?php elseif ( 'restored_all' === $data['notice'] ) : ?>
 		<div class="notice notice-success is-dismissible inline">
-			<p><?php esc_html_e( 'Todos los hallazgos ignorados se han restaurado.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'All ignored findings have been restored.', 'wpvitals' ); ?></p>
 		</div>
 	<?php endif; ?>
 
@@ -60,7 +60,7 @@ $wpvitals_values = array_merge(
 			</span>
 			<div class="wpvitals-brand-text">
 				<h1><?php esc_html_e( 'WPVitals', 'wpvitals' ); ?></h1>
-				<span class="wpvitals-brand-tag"><?php esc_html_e( 'Diagnóstico de salud, seguridad y rendimiento', 'wpvitals' ); ?></span>
+				<span class="wpvitals-brand-tag"><?php esc_html_e( 'Health, security and performance diagnosis', 'wpvitals' ); ?></span>
 			</div>
 		</div>
 
@@ -68,19 +68,19 @@ $wpvitals_values = array_merge(
 			<input type="hidden" name="action" value="wpvitals_scan" />
 			<?php wp_nonce_field( 'wpvitals_scan' ); ?>
 			<button type="submit" class="button button-primary wpvitals-scan-button">
-				<span><?php esc_html_e( 'Escanear ahora', 'wpvitals' ); ?></span>
+				<span><?php esc_html_e( 'Scan now', 'wpvitals' ); ?></span>
 			</button>
 		</form>
 	</header>
 
 	<?php if ( ! $wpvitals_has ) : ?>
 		<div class="notice notice-info inline">
-			<p><?php esc_html_e( 'Todavía no hay ningún escaneo. Pulsa "Escanear ahora" para generar el primer diagnóstico.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'No scans yet. Click "Scan now" to generate the first diagnosis.', 'wpvitals' ); ?></p>
 		</div>
 	<?php endif; ?>
 
 	<div class="wpvitals-grid">
-		<section class="wpvitals-grid-col wpvitals-col-main" aria-label="<?php esc_attr_e( 'Resumen de sitio', 'wpvitals' ); ?>">
+		<section class="wpvitals-grid-col wpvitals-col-main" aria-label="<?php esc_attr_e( 'Site summary', 'wpvitals' ); ?>">
 			<div class="wpvitals-card">
 				<h2 class="wpvitals-card-title"><?php esc_html_e( 'Health Score', 'wpvitals' ); ?></h2>
 				<div class="wpvitals-gauge wpvitals-gauge-<?php echo esc_attr( $wpvitals_state ); ?>" style="<?php echo esc_attr( '--p:' . $wpvitals_gauge . 'deg' ); ?>">
@@ -96,12 +96,12 @@ $wpvitals_values = array_merge(
 					</div>
 				</div>
 				<div class="wpvitals-card-meta">
-					<?php echo esc_html( $wpvitals_has ? $data['score_label'] : __( 'Sin escaneo', 'wpvitals' ) ); ?>
+					<?php echo esc_html( $wpvitals_has ? $data['score_label'] : __( 'No scan', 'wpvitals' ) ); ?>
 				</div>
 			</div>
 
 			<div class="wpvitals-card">
-				<h2 class="wpvitals-card-title"><?php esc_html_e( 'Último escaneo', 'wpvitals' ); ?></h2>
+				<h2 class="wpvitals-card-title"><?php esc_html_e( 'Last scan', 'wpvitals' ); ?></h2>
 				<div class="wpvitals-card-value">
 					<?php
 					if ( $wpvitals_has ) {
@@ -117,13 +117,13 @@ $wpvitals_values = array_merge(
 					?>
 				</div>
 				<div class="wpvitals-card-meta">
-					<?php echo esc_html( $wpvitals_has ? $data['origin_label'] : __( 'Sin escaneos', 'wpvitals' ) ); ?>
+					<?php echo esc_html( $wpvitals_has ? $data['origin_label'] : __( 'No scans', 'wpvitals' ) ); ?>
 				</div>
 			</div>
 		</section>
 
-		<section class="wpvitals-grid-col wpvitals-col-site" aria-label="<?php esc_attr_e( 'Detalles técnicos', 'wpvitals' ); ?>">
-			<h2 class="wpvitals-grid-heading"><?php esc_html_e( 'Detalles técnicos', 'wpvitals' ); ?></h2>
+		<section class="wpvitals-grid-col wpvitals-col-site" aria-label="<?php esc_attr_e( 'Technical details', 'wpvitals' ); ?>">
+			<h2 class="wpvitals-grid-heading"><?php esc_html_e( 'Technical details', 'wpvitals' ); ?></h2>
 
 			<div class="wpvitals-card wpvitals-tech">
 				<span class="wpvitals-tech-icon wpvitals-tech-icon-globe" aria-hidden="true">
@@ -134,7 +134,7 @@ $wpvitals_values = array_merge(
 					</svg>
 				</span>
 				<div class="wpvitals-tech-text">
-					<div class="wpvitals-tech-label"><?php esc_html_e( 'URL del proyecto', 'wpvitals' ); ?></div>
+					<div class="wpvitals-tech-label"><?php esc_html_e( 'Site URL', 'wpvitals' ); ?></div>
 					<div class="wpvitals-tech-value wpvitals-site-url">
 						<a href="<?php echo esc_url( $wpvitals_values['url'] ); ?>" target="_blank" rel="noreferrer noopener">
 							<?php echo esc_html( $wpvitals_values['url'] ); ?>
@@ -170,22 +170,22 @@ $wpvitals_values = array_merge(
 					</svg>
 				</span>
 				<div class="wpvitals-tech-text">
-					<div class="wpvitals-tech-label"><?php esc_html_e( 'Servidor', 'wpvitals' ); ?></div>
-					<div class="wpvitals-tech-value"><?php echo esc_html( '' !== $wpvitals_values['server'] ? $wpvitals_values['server'] : __( 'No detectable', 'wpvitals' ) ); ?></div>
+					<div class="wpvitals-tech-label"><?php esc_html_e( 'Server', 'wpvitals' ); ?></div>
+					<div class="wpvitals-tech-value"><?php echo esc_html( '' !== $wpvitals_values['server'] ? $wpvitals_values['server'] : __( 'Not detectable', 'wpvitals' ) ); ?></div>
 				</div>
 			</div>
 		</section>
 
-		<section class="wpvitals-grid-col wpvitals-col-key" aria-label="<?php esc_attr_e( 'Hallazgos clave', 'wpvitals' ); ?>">
-			<h2 class="wpvitals-grid-heading"><?php esc_html_e( 'Hallazgos clave', 'wpvitals' ); ?></h2>
+		<section class="wpvitals-grid-col wpvitals-col-key" aria-label="<?php esc_attr_e( 'Key findings', 'wpvitals' ); ?>">
+			<h2 class="wpvitals-grid-heading"><?php esc_html_e( 'Key findings', 'wpvitals' ); ?></h2>
 
 			<div class="wpvitals-card wpvitals-stat">
 				<div class="wpvitals-stat-value wpvitals-stat-value-<?php echo esc_attr( $wpvitals_values['vuln'] > 0 ? 'bad' : 'good' ); ?>">
 					<?php echo esc_html( (string) $wpvitals_values['vuln'] ); ?>
 				</div>
-				<div class="wpvitals-stat-label"><?php esc_html_e( 'Vulnerabilidades activas', 'wpvitals' ); ?></div>
+				<div class="wpvitals-stat-label"><?php esc_html_e( 'Active vulnerabilities', 'wpvitals' ); ?></div>
 				<span class="wpvitals-badge wpvitals-badge-<?php echo esc_attr( $wpvitals_values['vuln'] > 0 ? 'bad' : 'good' ); ?>">
-					<?php echo esc_html( $wpvitals_values['vuln'] > 0 ? __( 'En riesgo', 'wpvitals' ) : __( 'Seguro', 'wpvitals' ) ); ?>
+					<?php echo esc_html( $wpvitals_values['vuln'] > 0 ? __( 'At risk', 'wpvitals' ) : __( 'Safe', 'wpvitals' ) ); ?>
 				</span>
 			</div>
 
@@ -193,9 +193,9 @@ $wpvitals_values = array_merge(
 				<div class="wpvitals-stat-value wpvitals-stat-value-<?php echo esc_attr( $wpvitals_values['updates'] > 0 ? 'bad' : 'good' ); ?>">
 					<?php echo esc_html( (string) $wpvitals_values['updates'] ); ?>
 				</div>
-				<div class="wpvitals-stat-label"><?php esc_html_e( 'Actualizaciones pendientes', 'wpvitals' ); ?></div>
+				<div class="wpvitals-stat-label"><?php esc_html_e( 'Pending updates', 'wpvitals' ); ?></div>
 				<span class="wpvitals-badge wpvitals-badge-<?php echo esc_attr( $wpvitals_values['updates'] > 0 ? 'warn' : 'good' ); ?>">
-					<?php echo esc_html( $wpvitals_values['updates'] > 0 ? __( 'Pendiente', 'wpvitals' ) : __( 'Al día', 'wpvitals' ) ); ?>
+					<?php echo esc_html( $wpvitals_values['updates'] > 0 ? __( 'Pending', 'wpvitals' ) : __( 'Up to date', 'wpvitals' ) ); ?>
 				</span>
 			</div>
 		</section>
@@ -214,7 +214,7 @@ $wpvitals_values = array_merge(
 		<?php endforeach; ?>
 	<?php elseif ( $wpvitals_has ) : ?>
 		<div class="notice notice-success inline">
-			<p><?php esc_html_e( 'No se han detectado hallazgos relevantes.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'No relevant findings detected.', 'wpvitals' ); ?></p>
 		</div>
 	<?php endif; ?>
 
@@ -225,15 +225,15 @@ $wpvitals_values = array_merge(
 					<?php
 					echo esc_html(
 						sprintf(
-							/* translators: %d: número de hallazgos ignorados. */
-							__( 'Ignorados (%d)', 'wpvitals' ),
+							/* translators: %d: number of ignored findings. */
+							__( 'Ignored (%d)', 'wpvitals' ),
 							$data['ignored_count']
 						)
 					);
 					?>
 					<span class="wpvitals-restore-all">
 						<a href="<?php echo esc_url( \WPVitals\Admin\AdminPage::restore_all_url() ); ?>">
-							<?php esc_html_e( 'Restaurar todos', 'wpvitals' ); ?>
+							<?php esc_html_e( 'Restore all', 'wpvitals' ); ?>
 						</a>
 					</span>
 				</summary>

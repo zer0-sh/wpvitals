@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $wpvitals_settings = $data['settings'];
 ?>
 <div class="wrap wpvitals-wrap">
-	<h1><?php esc_html_e( 'Ajustes de WPVitals', 'wpvitals' ); ?></h1>
+	<h1><?php esc_html_e( 'WPVitals Settings', 'wpvitals' ); ?></h1>
 
 	<?php if ( 'updated' === $data['notice'] ) : ?>
 		<div class="notice notice-success is-dismissible inline">
-			<p><?php esc_html_e( 'Ajustes guardados correctamente.', 'wpvitals' ); ?></p>
+			<p><?php esc_html_e( 'Settings saved successfully.', 'wpvitals' ); ?></p>
 		</div>
 	<?php endif; ?>
 
@@ -26,16 +26,16 @@ $wpvitals_settings = $data['settings'];
 		<table class="form-table" role="presentation">
 			<tr>
 				<th scope="row">
-					<label for="wpvitals-frequency"><?php esc_html_e( 'Frecuencia del escaneo', 'wpvitals' ); ?></label>
+					<label for="wpvitals-frequency"><?php esc_html_e( 'Scan frequency', 'wpvitals' ); ?></label>
 				</th>
 				<td>
 					<select name="wpvitals[frequency]" id="wpvitals-frequency">
 						<?php
 						$wpvitals_frequencies = array(
-							'disabled' => __( 'Desactivado', 'wpvitals' ),
-							'daily'    => __( 'A diario', 'wpvitals' ),
-							'weekly'   => __( 'Semanalmente', 'wpvitals' ),
-							'monthly'  => __( 'Mensualmente', 'wpvitals' ),
+							'disabled' => __( 'Disabled', 'wpvitals' ),
+							'daily'    => __( 'Daily', 'wpvitals' ),
+							'weekly'   => __( 'Weekly', 'wpvitals' ),
+							'monthly'  => __( 'Monthly', 'wpvitals' ),
 						);
 
 						foreach ( $wpvitals_frequencies as $wpvitals_value => $wpvitals_label ) :
@@ -46,14 +46,14 @@ $wpvitals_settings = $data['settings'];
 						<?php endforeach; ?>
 					</select>
 					<p class="description">
-						<?php esc_html_e( 'Frecuencia con la que se revisa el estado del sitio automáticamente.', 'wpvitals' ); ?>
+						<?php esc_html_e( 'How often the site status is checked automatically.', 'wpvitals' ); ?>
 					</p>
 				</td>
 			</tr>
 
 			<tr>
 				<th scope="row">
-					<label for="wpvitals-mail-enabled"><?php esc_html_e( 'Informes por correo', 'wpvitals' ); ?></label>
+					<label for="wpvitals-mail-enabled"><?php esc_html_e( 'Email reports', 'wpvitals' ); ?></label>
 				</th>
 				<td>
 					<label for="wpvitals-mail-enabled">
@@ -64,17 +64,17 @@ $wpvitals_settings = $data['settings'];
 							value="1"
 							<?php checked( $wpvitals_settings->is_mail_enabled(), true ); ?>
 						/>
-						<?php esc_html_e( 'Enviar los resultados por correo', 'wpvitals' ); ?>
+						<?php esc_html_e( 'Send results by email', 'wpvitals' ); ?>
 					</label>
 					<p class="description">
-						<?php esc_html_e( 'Tras cada escaneo manual y cuando el diagnóstico cambia en los programados.', 'wpvitals' ); ?>
+						<?php esc_html_e( 'After each manual scan and when the diagnosis changes in scheduled ones.', 'wpvitals' ); ?>
 					</p>
 				</td>
 			</tr>
 
 			<tr>
 				<th scope="row">
-					<label for="wpvitals-recipient"><?php esc_html_e( 'Destinatario', 'wpvitals' ); ?></label>
+					<label for="wpvitals-recipient"><?php esc_html_e( 'Recipient', 'wpvitals' ); ?></label>
 				</th>
 				<td>
 					<input
@@ -88,8 +88,8 @@ $wpvitals_settings = $data['settings'];
 					<p class="description">
 						<?php
 						printf(
-							/* translators: %s: correo del administrador por defecto. */
-							esc_html__( 'Vacío para usar el correo del administrador («%s»).', 'wpvitals' ),
+							/* translators: %s: default administrator email. */
+							esc_html__( 'Leave empty to use the administrator email («%s»).', 'wpvitals' ),
 							esc_html( (string) get_option( 'admin_email', '' ) )
 						);
 						?>
@@ -98,7 +98,7 @@ $wpvitals_settings = $data['settings'];
 			</tr>
 		<tr>
 				<th scope="row">
-					<label for="wpvitals-time-24h"><?php esc_html_e( 'Formato de hora', 'wpvitals' ); ?></label>
+					<label for="wpvitals-time-24h"><?php esc_html_e( 'Time format', 'wpvitals' ); ?></label>
 				</th>
 				<td>
 					<label for="wpvitals-time-24h">
@@ -109,10 +109,10 @@ $wpvitals_settings = $data['settings'];
 							value="1"
 							<?php checked( $wpvitals_settings->is_time_24h(), true ); ?>
 						/>
-						<?php esc_html_e( 'Usar formato de 24 horas', 'wpvitals' ); ?>
+						<?php esc_html_e( 'Use 24-hour format', 'wpvitals' ); ?>
 					</label>
 					<p class="description">
-						<?php esc_html_e( 'Muestra la hora de los escaneos y las programaciones en formato de 24 horas.', 'wpvitals' ); ?>
+						<?php esc_html_e( 'Shows scan and scheduling times in 24-hour format.', 'wpvitals' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -120,7 +120,7 @@ $wpvitals_settings = $data['settings'];
 
 		<?php wp_nonce_field( 'wpvitals_settings' ); ?>
 		<input type="hidden" name="action" value="wpvitals_settings" />
-		<?php submit_button( __( 'Guardar ajustes', 'wpvitals' ), 'primary', 'submit', false ); ?>
+		<?php submit_button( __( 'Save settings', 'wpvitals' ), 'primary', 'submit', false ); ?>
 	</form>
 
 	<?php $wpvitals_time_format = $wpvitals_settings->is_time_24h() ? 'H:i' : (string) get_option( 'time_format' ); ?>
@@ -129,8 +129,8 @@ $wpvitals_settings = $data['settings'];
 		<strong>
 			<?php
 			printf(
-				/* translators: 1: frecuencia configurada, 2: fecha de la próxima ejecución. */
-				esc_html__( 'Escaneo programado: %1$s. Próxima ejecución: %2$s.', 'wpvitals' ),
+				/* translators: 1: configured frequency, 2: date of the next run. */
+				esc_html__( 'Scheduled scan: %1$s. Next run: %2$s.', 'wpvitals' ),
 				esc_html( $wpvitals_frequencies[ $wpvitals_settings->get_frequency() ] ),
 				null !== $data['next_run']
 					? esc_html(
@@ -139,7 +139,7 @@ $wpvitals_settings = $data['settings'];
 							$data['next_run']
 						)
 					)
-					: esc_html__( 'no programado', 'wpvitals' )
+					: esc_html__( 'not scheduled', 'wpvitals' )
 			);
 			?>
 		</strong>

@@ -270,8 +270,8 @@ final class DashboardData {
 			'severity_label'  => $top['severity_label'],
 			'description'     => $top['description'],
 			'recommendation'  => sprintf(
-				/* translators: 1: número de CVEs, 2: componente afectado. */
-				__( 'Se detectaron %1$d CVEs relacionadas a %2$s. Actualiza pronto.', 'wpvitals' ),
+				/* translators: 1: number of CVEs, 2: affected component. */
+				__( 'Detected %1$d CVEs related to %2$s. Update soon.', 'wpvitals' ),
 				count( $items ),
 				$title
 			),
@@ -318,83 +318,83 @@ final class DashboardData {
 	private static function check_description( string $id ): string {
 		switch ( $id ) {
 			case 'core/version':
-				return __( 'Versión del núcleo de WordPress instalada y las actualizaciones disponibles.', 'wpvitals' );
+				return __( 'Installed WordPress core version and available updates.', 'wpvitals' );
 
 			case 'php/version':
-				return __( 'Versión de PHP del servidor y su estado dentro del ciclo de soporte.', 'wpvitals' );
+				return __( 'Server PHP version and its support lifecycle status.', 'wpvitals' );
 
 			case 'php/memory':
-				return __( 'Límite de memoria configurado para PHP (memory_limit).', 'wpvitals' );
+				return __( 'Configured memory limit for PHP (memory_limit).', 'wpvitals' );
 
 			case 'php/display_errors':
-				return __( 'Si los errores PHP son visibles en el sitio (display_errors).', 'wpvitals' );
+				return __( 'Whether PHP errors are visible on the site (display_errors).', 'wpvitals' );
 
 			case 'php/extensions':
-				return __( 'Extensiones de PHP que WordPress necesita y su disponibilidad.', 'wpvitals' );
+				return __( 'PHP extensions required by WordPress and their availability.', 'wpvitals' );
 
 			case 'security/https':
-				return __( 'HTTPS: protocolo seguro que cifra la comunicación entre el visitante y tu sitio.', 'wpvitals' );
+				return __( 'HTTPS: secure protocol that encrypts communication between visitors and your site.', 'wpvitals' );
 
 			case 'security/xmlrpc':
-				return __( 'XML-RPC: interfaz para publicar contenido desde clientes externos; suele ser objetivo de fuerza bruta.', 'wpvitals' );
+				return __( 'XML-RPC: interface to publish content from external clients; often targeted by brute force.', 'wpvitals' );
 
 			case 'security/debug':
-				return __( 'Modo de depuración de WordPress (WP_DEBUG) y si es seguro en producción.', 'wpvitals' );
+				return __( 'WordPress debug mode (WP_DEBUG) and whether it is safe for production.', 'wpvitals' );
 
 			case 'security/debug_log':
-				return __( 'Registro de errores PHP de WordPress (WP_DEBUG_LOG) y su exposición.', 'wpvitals' );
+				return __( 'WordPress PHP error log (WP_DEBUG_LOG) and its exposure.', 'wpvitals' );
 
 			case 'security/file_edit':
-				return __( 'Si se permite editar archivos de plugins y temas desde el escritorio (DISALLOW_FILE_EDIT).', 'wpvitals' );
+				return __( 'Whether plugin and theme files can be edited from the admin (DISALLOW_FILE_EDIT).', 'wpvitals' );
 
 			case 'system/cron':
-				return __( 'WP-Cron: programador interno de tareas periódicas de WordPress.', 'wpvitals' );
+				return __( 'WP-Cron: WordPress built-in scheduler for periodic tasks.', 'wpvitals' );
 
 			case 'system/loopback':
-				return __( 'Loopback: si WordPress puede comunicarse consigo mismo, requisito de WP-Cron y Site Health.', 'wpvitals' );
+				return __( 'Loopback: whether WordPress can communicate with itself; required by WP-Cron and Site Health.', 'wpvitals' );
 
 			case 'components/plugins':
-				return __( 'Plugins instalados y las actualizaciones pendientes de cada uno.', 'wpvitals' );
+				return __( 'Installed plugins and their pending updates.', 'wpvitals' );
 
 			case 'components/themes':
-				return __( 'Temas instalados y las actualizaciones pendientes de cada uno.', 'wpvitals' );
+				return __( 'Installed themes and their pending updates.', 'wpvitals' );
 
 			case 'headers/x-content-type-options':
-				return __( 'Cabecera que evita que el navegador interprete archivos con un tipo MIME distinto al declarado.', 'wpvitals' );
+				return __( 'Header that prevents browsers from interpreting files as a MIME type other than declared.', 'wpvitals' );
 
 			case 'headers/x-frame-options':
-				return __( 'Cabecera que impide mostrar tu sitio dentro de iframes de terceros (anti-clickjacking).', 'wpvitals' );
+				return __( 'Header that stops your site from being displayed inside third-party iframes (anti-clickjacking).', 'wpvitals' );
 
 			case 'headers/content-security-policy':
-				return __( 'Cabecera que restringe los orígenes y recursos que el navegador puede cargar.', 'wpvitals' );
+				return __( 'Header that restricts the origins and resources the browser can load.', 'wpvitals' );
 
 			case 'headers/referrer-policy':
-				return __( 'Cabecera que controla la información de referencia que se filtra a otros sitios.', 'wpvitals' );
+				return __( 'Header that controls the referrer information shared with other sites.', 'wpvitals' );
 
 			case 'headers/permissions-policy':
-				return __( 'Cabecera que limita qué APIs del navegador pueden usar tus páginas.', 'wpvitals' );
+				return __( 'Header that limits which browser APIs your pages can use.', 'wpvitals' );
 
 			case 'headers/strict-transport-security':
-				return __( 'Cabecera que obliga al navegador a conectarse siempre por HTTPS.', 'wpvitals' );
+				return __( 'Header that forces the browser to always connect over HTTPS.', 'wpvitals' );
 		}
 
 		if ( 0 === strpos( $id, 'headers/' ) ) {
-			return __( 'Cabecera HTTP de seguridad enviada por el servidor con cada respuesta.', 'wpvitals' );
+			return __( 'Security HTTP header sent by the server with each response.', 'wpvitals' );
 		}
 
 		if ( 0 === strpos( $id, 'plugin/' ) ) {
-			return __( 'Plugins instalados y las actualizaciones pendientes de cada uno.', 'wpvitals' );
+			return __( 'Installed plugins and their pending updates.', 'wpvitals' );
 		}
 
 		if ( 0 === strpos( $id, 'theme/' ) ) {
-			return __( 'Temas instalados y las actualizaciones pendientes de cada uno.', 'wpvitals' );
+			return __( 'Installed themes and their pending updates.', 'wpvitals' );
 		}
 
 		if ( 0 === strpos( $id, 'vuln/' ) ) {
-			return __( 'Vulnerabilidad publicada en el registro de seguridad de WordPress (WPScan).', 'wpvitals' );
+			return __( 'Vulnerability listed in the WordPress security registry (WPScan).', 'wpvitals' );
 		}
 
-		return __( 'Comprobación del diagnóstico de salud, seguridad y rendimiento del sitio.', 'wpvitals' );
+		return __( 'Site health, security and performance check.', 'wpvitals' );
 	}
 
 	/**
@@ -518,14 +518,14 @@ final class DashboardData {
 	public static function score_label( string $state ): string {
 		switch ( $state ) {
 			case Score::STATE_HEALTHY:
-				return __( 'Saludable', 'wpvitals' );
+				return __( 'Healthy', 'wpvitals' );
 
 			case Score::STATE_ATTENTION:
-				return __( 'Requiere atención', 'wpvitals' );
+				return __( 'Needs attention', 'wpvitals' );
 
 			case Score::STATE_CRITICAL:
 			default:
-				return __( 'Crítico', 'wpvitals' );
+				return __( 'Critical', 'wpvitals' );
 		}
 	}
 
@@ -541,7 +541,7 @@ final class DashboardData {
 			return __( 'Manual', 'wpvitals' );
 		}
 
-		return __( 'Programado', 'wpvitals' );
+		return __( 'Scheduled', 'wpvitals' );
 	}
 
 	/**
@@ -554,16 +554,16 @@ final class DashboardData {
 	public static function severity_label( string $severity ): string {
 		switch ( $severity ) {
 			case Result::SEVERITY_OK:
-				return __( 'Bien', 'wpvitals' );
+				return __( 'Good', 'wpvitals' );
 
 			case Result::SEVERITY_INFO:
-				return __( 'Información', 'wpvitals' );
+				return __( 'Info', 'wpvitals' );
 
 			case Result::SEVERITY_WARNING:
-				return __( 'Aviso', 'wpvitals' );
+				return __( 'Warning', 'wpvitals' );
 
 			case Result::SEVERITY_CRITICAL:
-				return __( 'Crítico', 'wpvitals' );
+				return __( 'Critical', 'wpvitals' );
 
 			case Result::SEVERITY_ERROR:
 			default:
@@ -581,28 +581,28 @@ final class DashboardData {
 	public static function category_label( string $key ): string {
 		switch ( $key ) {
 			case 'core':
-				return __( 'Núcleo de WordPress', 'wpvitals' );
+				return __( 'WordPress core', 'wpvitals' );
 
 			case 'php':
 				return __( 'PHP', 'wpvitals' );
 
 			case 'security':
-				return __( 'Seguridad', 'wpvitals' );
+				return __( 'Security', 'wpvitals' );
 
 			case 'system':
-				return __( 'Sistema', 'wpvitals' );
+				return __( 'System', 'wpvitals' );
 
 			case 'headers':
-				return __( 'Cabeceras de seguridad', 'wpvitals' );
+				return __( 'Security headers', 'wpvitals' );
 
 			case 'plugin':
 				return __( 'Plugins', 'wpvitals' );
 
 			case 'theme':
-				return __( 'Temas', 'wpvitals' );
+				return __( 'Themes', 'wpvitals' );
 
 			case 'vuln':
-				return __( 'Vulnerabilidades', 'wpvitals' );
+				return __( 'Vulnerabilities', 'wpvitals' );
 
 			default:
 				return $key;

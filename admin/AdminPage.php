@@ -184,8 +184,8 @@ final class AdminPage {
 
 		\add_submenu_page(
 			self::SLUG,
-			__( 'Ajustes', 'wpvitals' ),
-			__( 'Ajustes', 'wpvitals' ),
+			__( 'Settings', 'wpvitals' ),
+			__( 'Settings', 'wpvitals' ),
 			'manage_options',
 			self::SLUG_SETTINGS,
 			array( $this, 'render_settings' )
@@ -199,7 +199,7 @@ final class AdminPage {
 	 */
 	public function handle_scan(): void {
 		if ( ! \current_user_can( 'manage_options' ) ) {
-			\wp_die( \esc_html__( 'No tienes permisos para ejecutar un escaneo.', 'wpvitals' ) );
+			\wp_die( \esc_html__( 'You do not have permission to run a scan.', 'wpvitals' ) );
 		}
 
 		\check_admin_referer( self::SCAN_ACTION );
@@ -235,7 +235,7 @@ final class AdminPage {
 	 */
 	public function handle_settings(): void {
 		if ( ! \current_user_can( 'manage_options' ) ) {
-			\wp_die( \esc_html__( 'No tienes permisos para modificar los ajustes.', 'wpvitals' ) );
+			\wp_die( \esc_html__( 'You do not have permission to modify the settings.', 'wpvitals' ) );
 		}
 
 		\check_admin_referer( self::SETTINGS_ACTION );
@@ -280,7 +280,7 @@ final class AdminPage {
 	 */
 	public function handle_restore_all(): void {
 		if ( ! \current_user_can( 'manage_options' ) ) {
-			\wp_die( \esc_html__( 'No tienes permisos para modificar los hallazgos ignorados.', 'wpvitals' ) );
+			\wp_die( \esc_html__( 'You do not have permission to modify ignored findings.', 'wpvitals' ) );
 		}
 
 		\check_admin_referer( self::RESTORE_ALL_ACTION );
@@ -303,7 +303,7 @@ final class AdminPage {
 	 */
 	private function toggle_ignored( string $action, string $status ): void {
 		if ( ! \current_user_can( 'manage_options' ) ) {
-			\wp_die( \esc_html__( 'No tienes permisos para modificar los hallazgos ignorados.', 'wpvitals' ) );
+			\wp_die( \esc_html__( 'You do not have permission to modify ignored findings.', 'wpvitals' ) );
 		}
 
 		\check_admin_referer( $action );
@@ -475,16 +475,16 @@ final class AdminPage {
 				return __( 'Plugins', 'wpvitals' );
 
 			case 'themes':
-				return __( 'Temas', 'wpvitals' );
+				return __( 'Themes', 'wpvitals' );
 
 			case 'update-core':
-				return __( 'Actualizaciones', 'wpvitals' );
+				return __( 'Updates', 'wpvitals' );
 
 			case 'options-general':
-				return __( 'Ajustes generales', 'wpvitals' );
+				return __( 'General settings', 'wpvitals' );
 
 			case 'site-health':
-				return __( 'Salud del sitio', 'wpvitals' );
+				return __( 'Site health', 'wpvitals' );
 
 			default:
 				return '';
