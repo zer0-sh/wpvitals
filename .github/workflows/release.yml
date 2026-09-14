@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build plugin zip and publish release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "Tag: v${VERSION}"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.5
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate version consistency
+        run: |
+          FILE_VERSION="$(grep -oP "define\( 'WPVITALS_VERSION', '\K[0-9.]+(?=')" wpvitals.php)"
+          echo "Header version: ${FILE_VERSION}"
+          echo "Tag version:    ${{ steps.version.outputs.version }}"
+          if [ "${FILE_VERSION}" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error::Version in wpvitals.php (${FILE_VERSION}) does not match tag (${{ steps.version.outputs.version }})"
+            exit 1
+          fi
+
+      - name: Install production dependencies
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --classmap-authoritative
+
+      - name: Stage plugin files
+        run: |
+          mkdir -p staging/wpvitals
+          rsync -a wpvitals.php includes/ admin/ assets/ languages/ vendor/ readme.txt LICENSE staging/wpvitals/
+          rsync -a readme.txt staging/wpvitals/
+          echo "=== Staged files ==="
+          find staging/wpvitals -maxdepth 2 -type d | sort
+
+      - name: Build zip
+        run: |
+          cd staging
+          zip -r "wpvitals-${{ steps.version.outputs.version }}.zip" wpvitals
+          echo "=== Zip contents (top level) ==="
+          unzip -l "wpvitals-${{ steps.version.outputs.version }}.zip" | head -15
+          mv "wpvitals-${{ steps.version.outputs.version }}.zip" ../
+
+      - name: Upload zip as artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: wpvitals-${{ steps.version.outputs.version }}-zip
+          path: wpvitals-${{ steps.version.outputs.version }}.zip
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: wpvitals-${{ steps.version.outputs.version }}.zip
+          generate_release_notes: true

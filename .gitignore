@@ -8,6 +8,7 @@ composer.lock
 
 # Loval Env
 *.log
+/wp-content/
 
 # IDE and system files
 /.idea/
