@@ -46,6 +46,52 @@ if ( is_admin() ) {
 }
 
 /**
+ * Carga las traducciones del plugin según el idioma del sitio.
+ *
+ * @return void
+ */
+function wpvitals_load_textdomain(): void {
+	load_plugin_textdomain(
+		'wpvitals',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
+}
+
+add_action( 'init', 'wpvitals_load_textdomain' );
+
+/**
+ * Redirige los archivos `.mo` de cualquier locale regional de español
+ * (`es_CO`, `es_MX`, `es_AR`…) al genérico `es_ES` cuando no existe un
+ * `.mo` específico para esa región.
+ *
+ * Con la carga just-in-time de traducciones (WordPress 6.7+), el registro de
+ * textdomains (`WP_Textdomain_Registry`) resuelve el `.mo` por locale exacto
+ * (`wpvitals-es_CO.mo`) y no aplica fallback regional ni pasa por el filtro
+ * `plugin_locale`. Este filtro `load_textdomain_mofile` (aplicado siempre,
+ * dentro de `load_textdomain()`) sustituye la región por `es_ES` y mantiene
+ * el resto de idiomas intactos.
+ *
+ * @param string $mofile Ruta del archivo .mo que WordPress va a cargar.
+ * @param string $domain Text domain del filtro.
+ *
+ * @return string Ruta .mo ajustada.
+ */
+function wpvitals_mofile_spanish_fallback( string $mofile, string $domain ): string {
+	if ( 'wpvitals' !== $domain || ! preg_match( '/wpvitals-es_[A-Z]{2}\.mo$/i', $mofile ) ) {
+		return $mofile;
+	}
+
+	if ( is_readable( $mofile ) ) {
+		return $mofile;
+	}
+
+	return preg_replace( '/wpvitals-es_[A-Z]{2}\.mo$/i', 'wpvitals-es_ES.mo', $mofile );
+}
+
+add_filter( 'load_textdomain_mofile', 'wpvitals_mofile_spanish_fallback', 10, 2 );
+
+/**
  * Inicializa el panel de administración de WPVitals.
  *
  * Se ejecuta al cargar el plugin dentro del panel: el menú se registra en

@@ -1,0 +1,769 @@
+# Copyright (C) 2026 WPVitals
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WPVitals 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/app\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-14T02:26:12+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wpvitals\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: wpvitals.php
+#: admin/views/dashboard.php:62
+msgid "WPVitals"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wpvitals.php
+msgid "https://github.com/zer0-sh/wpvitals"
+msgstr ""
+
+#. Description of the plugin
+#: wpvitals.php
+msgid "Ultra lightweight WordPress plugin to monitor your website's performance and uptime."
+msgstr ""
+
+#: admin/AdminPage.php:176
+#: admin/AdminPage.php:177
+msgid "Vitals"
+msgstr ""
+
+#: admin/AdminPage.php:187
+#: admin/AdminPage.php:188
+msgid "Settings"
+msgstr ""
+
+#: admin/AdminPage.php:202
+msgid "You do not have permission to run a scan."
+msgstr ""
+
+#: admin/AdminPage.php:238
+msgid "You do not have permission to modify the settings."
+msgstr ""
+
+#: admin/AdminPage.php:283
+#: admin/AdminPage.php:306
+msgid "You do not have permission to modify ignored findings."
+msgstr ""
+
+#: admin/AdminPage.php:475
+#: admin/DashboardData.php:599
+msgid "Plugins"
+msgstr ""
+
+#: admin/AdminPage.php:478
+#: admin/DashboardData.php:602
+msgid "Themes"
+msgstr ""
+
+#: admin/AdminPage.php:481
+msgid "Updates"
+msgstr ""
+
+#: admin/AdminPage.php:484
+msgid "General settings"
+msgstr ""
+
+#: admin/AdminPage.php:487
+msgid "Site health"
+msgstr ""
+
+#: admin/DashboardData.php:264
+#: admin/views/dashboard.php:150
+msgid "WordPress"
+msgstr ""
+
+#. translators: 1: number of CVEs, 2: affected component.
+#: admin/DashboardData.php:274
+#, php-format
+msgid "Detected %1$d CVEs related to %2$s. Update soon."
+msgstr ""
+
+#: admin/DashboardData.php:321
+msgid "Installed WordPress core version and available updates."
+msgstr ""
+
+#: admin/DashboardData.php:324
+msgid "Server PHP version and its support lifecycle status."
+msgstr ""
+
+#: admin/DashboardData.php:327
+msgid "Configured memory limit for PHP (memory_limit)."
+msgstr ""
+
+#: admin/DashboardData.php:330
+msgid "Whether PHP errors are visible on the site (display_errors)."
+msgstr ""
+
+#: admin/DashboardData.php:333
+msgid "PHP extensions required by WordPress and their availability."
+msgstr ""
+
+#: admin/DashboardData.php:336
+msgid "HTTPS: secure protocol that encrypts communication between visitors and your site."
+msgstr ""
+
+#: admin/DashboardData.php:339
+msgid "XML-RPC: interface to publish content from external clients; often targeted by brute force."
+msgstr ""
+
+#: admin/DashboardData.php:342
+msgid "WordPress debug mode (WP_DEBUG) and whether it is safe for production."
+msgstr ""
+
+#: admin/DashboardData.php:345
+msgid "WordPress PHP error log (WP_DEBUG_LOG) and its exposure."
+msgstr ""
+
+#: admin/DashboardData.php:348
+msgid "Whether plugin and theme files can be edited from the admin (DISALLOW_FILE_EDIT)."
+msgstr ""
+
+#: admin/DashboardData.php:351
+msgid "WP-Cron: WordPress built-in scheduler for periodic tasks."
+msgstr ""
+
+#: admin/DashboardData.php:354
+msgid "Loopback: whether WordPress can communicate with itself; required by WP-Cron and Site Health."
+msgstr ""
+
+#: admin/DashboardData.php:357
+#: admin/DashboardData.php:386
+msgid "Installed plugins and their pending updates."
+msgstr ""
+
+#: admin/DashboardData.php:360
+#: admin/DashboardData.php:390
+msgid "Installed themes and their pending updates."
+msgstr ""
+
+#: admin/DashboardData.php:363
+msgid "Header that prevents browsers from interpreting files as a MIME type other than declared."
+msgstr ""
+
+#: admin/DashboardData.php:366
+msgid "Header that stops your site from being displayed inside third-party iframes (anti-clickjacking)."
+msgstr ""
+
+#: admin/DashboardData.php:369
+msgid "Header that restricts the origins and resources the browser can load."
+msgstr ""
+
+#: admin/DashboardData.php:372
+msgid "Header that controls the referrer information shared with other sites."
+msgstr ""
+
+#: admin/DashboardData.php:375
+msgid "Header that limits which browser APIs your pages can use."
+msgstr ""
+
+#: admin/DashboardData.php:378
+msgid "Header that forces the browser to always connect over HTTPS."
+msgstr ""
+
+#: admin/DashboardData.php:382
+msgid "Security HTTP header sent by the server with each response."
+msgstr ""
+
+#: admin/DashboardData.php:394
+msgid "Vulnerability listed in the WordPress security registry (WPScan)."
+msgstr ""
+
+#: admin/DashboardData.php:397
+msgid "Site health, security and performance check."
+msgstr ""
+
+#: admin/DashboardData.php:521
+#: includes/MailReport.php:218
+msgid "Healthy"
+msgstr ""
+
+#: admin/DashboardData.php:524
+#: includes/MailReport.php:225
+msgid "Needs attention"
+msgstr ""
+
+#: admin/DashboardData.php:528
+#: admin/DashboardData.php:566
+#: includes/MailReport.php:221
+#: includes/MailReport.php:245
+msgid "Critical"
+msgstr ""
+
+#: admin/DashboardData.php:541
+msgid "Manual"
+msgstr ""
+
+#: admin/DashboardData.php:544
+msgid "Scheduled"
+msgstr ""
+
+#: admin/DashboardData.php:557
+#: includes/MailReport.php:252
+msgid "Good"
+msgstr ""
+
+#: admin/DashboardData.php:560
+#: includes/MailReport.php:239
+msgid "Info"
+msgstr ""
+
+#: admin/DashboardData.php:563
+#: includes/MailReport.php:242
+msgid "Warning"
+msgstr ""
+
+#: admin/DashboardData.php:570
+#: includes/MailReport.php:248
+msgid "Error"
+msgstr ""
+
+#: admin/DashboardData.php:584
+msgid "WordPress core"
+msgstr ""
+
+#: admin/DashboardData.php:587
+#: admin/views/dashboard.php:158
+msgid "PHP"
+msgstr ""
+
+#: admin/DashboardData.php:590
+msgid "Security"
+msgstr ""
+
+#: admin/DashboardData.php:593
+msgid "System"
+msgstr ""
+
+#: admin/DashboardData.php:596
+#: includes/Checks/SecurityHeadersCheck.php:96
+msgid "Security headers"
+msgstr ""
+
+#: admin/DashboardData.php:605
+msgid "Vulnerabilities"
+msgstr ""
+
+#: admin/views/dashboard.php:29
+msgid "Scan completed successfully."
+msgstr ""
+
+#: admin/views/dashboard.php:33
+msgid "The scan failed. Try again in a few seconds."
+msgstr ""
+
+#: admin/views/dashboard.php:37
+msgid "A scan is already in progress."
+msgstr ""
+
+#: admin/views/dashboard.php:41
+msgid "The finding has been moved to the ignored section."
+msgstr ""
+
+#: admin/views/dashboard.php:45
+msgid "The finding has been restored and counts again in the diagnosis."
+msgstr ""
+
+#: admin/views/dashboard.php:49
+msgid "All ignored findings have been restored."
+msgstr ""
+
+#: admin/views/dashboard.php:63
+msgid "Health, security and performance diagnosis"
+msgstr ""
+
+#: admin/views/dashboard.php:71
+msgid "Scan now"
+msgstr ""
+
+#: admin/views/dashboard.php:78
+msgid "No scans yet. Click \"Scan now\" to generate the first diagnosis."
+msgstr ""
+
+#: admin/views/dashboard.php:83
+msgid "Site summary"
+msgstr ""
+
+#: admin/views/dashboard.php:85
+#: includes/MailReport.php:140
+#: includes/MailReport.php:157
+msgid "Health Score"
+msgstr ""
+
+#: admin/views/dashboard.php:99
+msgid "No scan"
+msgstr ""
+
+#: admin/views/dashboard.php:104
+msgid "Last scan"
+msgstr ""
+
+#: admin/views/dashboard.php:120
+msgid "No scans"
+msgstr ""
+
+#: admin/views/dashboard.php:125
+#: admin/views/dashboard.php:126
+msgid "Technical details"
+msgstr ""
+
+#: admin/views/dashboard.php:137
+msgid "Site URL"
+msgstr ""
+
+#: admin/views/dashboard.php:173
+msgid "Server"
+msgstr ""
+
+#: admin/views/dashboard.php:174
+msgid "Not detectable"
+msgstr ""
+
+#: admin/views/dashboard.php:179
+#: admin/views/dashboard.php:180
+msgid "Key findings"
+msgstr ""
+
+#: admin/views/dashboard.php:186
+#: includes/MailReport.php:162
+msgid "Active vulnerabilities"
+msgstr ""
+
+#: admin/views/dashboard.php:188
+msgid "At risk"
+msgstr ""
+
+#: admin/views/dashboard.php:188
+msgid "Safe"
+msgstr ""
+
+#: admin/views/dashboard.php:196
+#: includes/MailReport.php:163
+msgid "Pending updates"
+msgstr ""
+
+#: admin/views/dashboard.php:198
+msgid "Pending"
+msgstr ""
+
+#: admin/views/dashboard.php:198
+msgid "Up to date"
+msgstr ""
+
+#: admin/views/dashboard.php:217
+#: includes/MailReport.php:202
+msgid "No relevant findings detected."
+msgstr ""
+
+#. translators: %d: number of ignored findings.
+#: admin/views/dashboard.php:229
+#, php-format
+msgid "Ignored (%d)"
+msgstr ""
+
+#: admin/views/dashboard.php:236
+msgid "Restore all"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:23
+msgid "Finding"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:24
+msgid "Description"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:25
+msgid "Severity"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:26
+msgid "Action"
+msgstr ""
+
+#. translators: %d: points deducted from the Health Score.
+#: admin/views/partials/findings-table.php:35
+#: admin/views/partials/findings-table.php:97
+#, php-format
+msgid "-%d points"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:63
+#: admin/views/partials/findings-table.php:123
+msgid "Restore"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:68
+#: admin/views/partials/findings-table.php:118
+msgid "View source"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:75
+msgid "No action available"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:80
+#: admin/views/partials/findings-table.php:127
+msgid "Ignore"
+msgstr ""
+
+#: admin/views/partials/findings-table.php:90
+msgid "Click for details"
+msgstr ""
+
+#: admin/views/settings.php:17
+msgid "WPVitals Settings"
+msgstr ""
+
+#: admin/views/settings.php:21
+msgid "Settings saved successfully."
+msgstr ""
+
+#: admin/views/settings.php:29
+msgid "Scan frequency"
+msgstr ""
+
+#: admin/views/settings.php:35
+msgid "Disabled"
+msgstr ""
+
+#: admin/views/settings.php:36
+msgid "Daily"
+msgstr ""
+
+#: admin/views/settings.php:37
+#: includes/Cron.php:162
+msgid "Weekly"
+msgstr ""
+
+#: admin/views/settings.php:38
+#: includes/Cron.php:167
+msgid "Monthly"
+msgstr ""
+
+#: admin/views/settings.php:49
+msgid "How often the site status is checked automatically."
+msgstr ""
+
+#: admin/views/settings.php:56
+msgid "Email reports"
+msgstr ""
+
+#: admin/views/settings.php:67
+msgid "Send results by email"
+msgstr ""
+
+#: admin/views/settings.php:70
+msgid "After each manual scan and when the diagnosis changes in scheduled ones."
+msgstr ""
+
+#: admin/views/settings.php:77
+msgid "Recipient"
+msgstr ""
+
+#. translators: %s: default administrator email.
+#: admin/views/settings.php:92
+#, php-format
+msgid "Leave empty to use the administrator email («%s»)."
+msgstr ""
+
+#: admin/views/settings.php:101
+msgid "Time format"
+msgstr ""
+
+#: admin/views/settings.php:112
+msgid "Use 24-hour format"
+msgstr ""
+
+#: admin/views/settings.php:115
+msgid "Shows scan and scheduling times in 24-hour format."
+msgstr ""
+
+#: admin/views/settings.php:123
+msgid "Save settings"
+msgstr ""
+
+#. translators: 1: configured frequency, 2: date of the next run.
+#: admin/views/settings.php:133
+#, php-format
+msgid "Scheduled scan: %1$s. Next run: %2$s."
+msgstr ""
+
+#: admin/views/settings.php:142
+msgid "not scheduled"
+msgstr ""
+
+#: includes/Checker.php:110
+msgid "The check returned an invalid result."
+msgstr ""
+
+#. translators: %s: internal check error message.
+#: includes/Checker.php:140
+#, php-format
+msgid "Internal check error: %s"
+msgstr ""
+
+#: includes/Checks/CronCheck.php:79
+msgid "WP-Cron"
+msgstr ""
+
+#: includes/Checks/CronCheck.php:98
+msgid "WP-Cron is disabled; make sure a system cron runs wp-cron.php instead of relying on visits."
+msgstr ""
+
+#: includes/Checks/CronCheck.php:106
+msgid "WP-Cron is disabled and no relevant events are detected; set up an external cron calling wp-cron.php or re-enable WP-Cron."
+msgstr ""
+
+#: includes/Checks/CronCheck.php:118
+msgid "WP-Cron is active but no relevant events are detected; make sure the site receives traffic or run a scan to trigger scheduled tasks."
+msgstr ""
+
+#: includes/Checks/DebugCheck.php:53
+msgid "WordPress debug mode"
+msgstr ""
+
+#: includes/Checks/DebugCheck.php:72
+msgid "WP_DEBUG and WP_DEBUG_DISPLAY are enabled; PHP errors can be shown in production. Disable them in wp-config.php."
+msgstr ""
+
+#: includes/Checks/DebugCheck.php:80
+msgid "WP_DEBUG is enabled in production; disable it in wp-config.php."
+msgstr ""
+
+#: includes/Checks/DebugLogCheck.php:50
+msgid "WordPress error log"
+msgstr ""
+
+#: includes/Checks/DebugLogCheck.php:66
+msgid "WP_DEBUG_LOG is enabled; the debug.log file can contain sensitive data and be publicly accessible. Disable it in production."
+msgstr ""
+
+#: includes/Checks/FileEditCheck.php:50
+msgid "File editing from the admin"
+msgstr ""
+
+#: includes/Checks/FileEditCheck.php:66
+msgid "File editing from WP-Admin is allowed; set DISALLOW_FILE_EDIT to true in wp-config.php."
+msgstr ""
+
+#: includes/Checks/HttpsCheck.php:65
+msgid "HTTPS connection"
+msgstr ""
+
+#: includes/Checks/HttpsCheck.php:82
+msgid "The current connection uses HTTPS."
+msgstr ""
+
+#: includes/Checks/HttpsCheck.php:96
+msgid "HTTPS is configured or enforced, but the current request is not detected as secure (possible reverse proxy or CDN); check the redirect and X-Forwarded-Proto headers."
+msgstr ""
+
+#: includes/Checks/HttpsCheck.php:106
+msgid "The site does not enforce HTTPS; redirect all traffic to https and update the site URLs in WordPress settings."
+msgstr ""
+
+#: includes/Checks/LoopbackCheck.php:68
+msgid "Loopback requests"
+msgstr ""
+
+#: includes/Checks/LoopbackCheck.php:84
+msgid "The loopback request failed (timeout or blocked connection); processes like cron, updates and email sending depend on it. Check firewalls, server rules and DNS."
+msgstr ""
+
+#: includes/Checks/PhpDisplayErrorsCheck.php:49
+msgid "PHP error display"
+msgstr ""
+
+#: includes/Checks/PhpDisplayErrorsCheck.php:65
+msgid "display_errors is enabled and shows PHP errors to visitors. Disable it in production with display_errors = Off."
+msgstr ""
+
+#: includes/Checks/PhpExtensionsCheck.php:65
+msgid "Required PHP extensions"
+msgstr ""
+
+#. translators: %s: list of required PHP extensions not found.
+#: includes/Checks/PhpExtensionsCheck.php:89
+#, php-format
+msgid "Missing PHP extensions required by WordPress: %s. Install them for full functionality."
+msgstr ""
+
+#: includes/Checks/PhpMemoryCheck.php:52
+msgid "PHP memory limit"
+msgstr ""
+
+#: includes/Checks/PhpMemoryCheck.php:66
+msgid "memory_limit is set without a limit (unlimited)."
+msgstr ""
+
+#. translators: 1: current limit, 2: recommended limit.
+#: includes/Checks/PhpMemoryCheck.php:79
+#, php-format
+msgid "memory_limit is at %1$s; WordPress recommends at least %2$s. Increase the limit in php.ini."
+msgstr ""
+
+#: includes/Checks/PhpVersionCheck.php:80
+msgid "PHP version"
+msgstr ""
+
+#. translators: %s: detected PHP version.
+#: includes/Checks/PhpVersionCheck.php:100
+#, php-format
+msgid "No lifecycle data available for PHP %s; check its official support status."
+msgstr ""
+
+#. translators: 1: PHP version, 2: EOL date.
+#: includes/Checks/PhpVersionCheck.php:121
+#, php-format
+msgid "PHP %1$s ended security support on %2$s; update to a supported version."
+msgstr ""
+
+#. translators: 1: PHP version, 2: EOL date.
+#: includes/Checks/PhpVersionCheck.php:139
+#, php-format
+msgid "PHP %1$s will stop receiving security support on %2$s; plan the update."
+msgstr ""
+
+#: includes/Checks/PluginsUpdatesCheck.php:65
+msgid "Outdated plugins"
+msgstr ""
+
+#: includes/Checks/PluginsUpdatesCheck.php:94
+msgid "Outdated plugin"
+msgstr ""
+
+#. translators: 1: plugin file, 2: new version, 3: updates URL.
+#: includes/Checks/PluginsUpdatesCheck.php:102
+#, php-format
+msgid "Plugin %1$s has version %2$s available. Update it from the native updates screen: %3$s"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:114
+#: includes/Checks/SecurityHeadersCheck.php:155
+msgid "Could not fetch the site headers; check the HTTP request."
+msgstr ""
+
+#. translators: %d: number of missing headers.
+#: includes/Checks/SecurityHeadersCheck.php:133
+#, php-format
+msgid "%d security headers missing on the public homepage."
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:197
+msgid "X-Content-Type-Options header"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:198
+msgid "X-Content-Type-Options: nosniff is missing; add it to prevent browser MIME sniffing."
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:201
+msgid "X-Frame-Options header"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:202
+msgid "X-Frame-Options is missing (and no frame-ancestors in the CSP); it prevents clickjacking of your site."
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:205
+msgid "Content-Security-Policy header"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:206
+msgid "Content-Security-Policy is missing; define a policy that limits allowed origins and resources."
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:209
+msgid "Referrer-Policy header"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:210
+msgid "Referrer-Policy is missing; configure how much referrer information is shared with other sites."
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:213
+msgid "Permissions-Policy header"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:214
+msgid "Permissions-Policy is missing; restrict the browser APIs (camera, microphone, geolocation…) available on your pages."
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:217
+msgid "Strict-Transport-Security header"
+msgstr ""
+
+#: includes/Checks/SecurityHeadersCheck.php:218
+msgid "Strict-Transport-Security is missing; over HTTPS it forces secure connections and prevents downgrade attacks."
+msgstr ""
+
+#: includes/Checks/ThemesUpdatesCheck.php:67
+msgid "Outdated themes"
+msgstr ""
+
+#: includes/Checks/ThemesUpdatesCheck.php:96
+msgid "Outdated theme"
+msgstr ""
+
+#. translators: 1: theme slug, 2: new version, 3: updates URL.
+#: includes/Checks/ThemesUpdatesCheck.php:104
+#, php-format
+msgid "Theme %1$s has version %2$s available. Update it from the native updates screen: %3$s"
+msgstr ""
+
+#: includes/Checks/WordPressVersionCheck.php:93
+msgid "WordPress version"
+msgstr ""
+
+#: includes/Checks/WordPressVersionCheck.php:112
+msgid "Could not fetch the available stable WordPress version; check the site update cache."
+msgstr ""
+
+#: includes/Checks/WordPressVersionCheck.php:129
+msgid "WordPress is up to date, but automatic updates are disabled; enable them to receive security patches."
+msgstr ""
+
+#. translators: 1: installed version, 2: available stable version.
+#: includes/Checks/WordPressVersionCheck.php:142
+#, php-format
+msgid "A WordPress update is pending (installed %1$s, available %2$s). Run the update from the admin."
+msgstr ""
+
+#. translators: 1: installed version, 2: available stable version.
+#: includes/Checks/WordPressVersionCheck.php:155
+#, php-format
+msgid "WordPress %1$s is outdated and automatic updates are disabled; update to %2$s and enable auto-updates."
+msgstr ""
+
+#: includes/Checks/XmlRpcCheck.php:50
+msgid "XML-RPC"
+msgstr ""
+
+#: includes/Checks/XmlRpcCheck.php:66
+msgid "XML-RPC is enabled and used in brute-force attacks. Disable it by returning false from the xmlrpc_enabled filter or blocking xmlrpc.php."
+msgstr ""
+
+#: includes/MailReport.php:165
+msgid "Findings:"
+msgstr ""
+
+#. translators: %d: number of additional findings.
+#: includes/MailReport.php:185
+#, php-format
+msgid "…and %d more findings."
+msgstr ""
+
+#. translators: 1: source name (e.g. CVE-2024-12345), 2: severity.
+#: includes/Scanner.php:248
+#, php-format
+msgid "Vulnerability %1$s with %2$s severity. Update the component to a secure version."
+msgstr ""
