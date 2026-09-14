@@ -1,0 +1,695 @@
+/**
+ * Estilos del panel de WPVitals.
+ */
+:root {
+	--wpvitals-bg: #f4f5f7;
+	--wpvitals-border: #e4e5e7;
+	--wpvitals-row-alt: #fafbfc;
+	--wpvitals-muted: #667085;
+	--wpvitals-muted-soft: #98a2b3;
+	--wpvitals-text: #1d2327;
+	--wpvitals-accent: #175cd3;
+	--wpvitals-green: #027a48;
+	--wpvitals-green-bg: #ecfdf3;
+	--wpvitals-green-border: #abefc6;
+	--wpvitals-amber: #b54708;
+	--wpvitals-amber-bg: #fff4e5;
+	--wpvitals-amber-border: #fed7aa;
+	--wpvitals-red: #b42318;
+	--wpvitals-red-bg: #fee4e2;
+	--wpvitals-red-border: #fecdca;
+	--wpvitals-blue: #0369a1;
+	--wpvitals-blue-bg: #e0f2fe;
+	--wpvitals-blue-border: #bae6fd;
+}
+
+.wpvitals-wrap {
+	box-sizing: border-box;
+	background: var(--wpvitals-bg);
+	padding: 18px 20px 28px;
+	min-height: calc(100vh - 32px);
+}
+
+.wpvitals-wrap h1 {
+	font-size: 20px;
+	font-weight: 700;
+	margin: 0;
+	line-height: 1.2;
+}
+
+.wpvitals-wrap .notice {
+	box-sizing: border-box;
+	margin: 14px 0 0;
+}
+
+/* Header. */
+.wpvitals-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	background: #fff;
+	border: 1px solid var(--wpvitals-border);
+	border-radius: 10px;
+	box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+	padding: 14px 18px;
+	margin-bottom: 18px;
+}
+
+.wpvitals-brand {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.wpvitals-brand-mark {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: 9px;
+	color: #fff;
+	background: linear-gradient(135deg, #175cd3, #0b3f99);
+	flex: 0 0 auto;
+}
+
+.wpvitals-brand-text {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}
+
+.wpvitals-brand-tag {
+	color: var(--wpvitals-muted);
+	font-size: 12px;
+}
+
+.wpvitals-scan-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 4px 16px;
+	border-radius: 7px;
+	font-weight: 600;
+}
+
+.wpvitals-scan-button svg {
+	flex: 0 0 auto;
+}
+
+/* Grid de tarjetas. */
+.wpvitals-grid {
+	display: grid;
+	grid-template-columns: minmax(230px, 1fr) minmax(280px, 1.5fr) minmax(220px, 1fr);
+	gap: 16px;
+	align-items: stretch;
+}
+
+.wpvitals-grid-col {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	min-width: 0;
+}
+
+.wpvitals-grid-heading {
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--wpvitals-muted);
+	margin: 0;
+}
+
+.wpvitals-card {
+	background: #fff;
+	border: 1px solid var(--wpvitals-border);
+	border-radius: 10px;
+	box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+	padding: 16px 18px;
+	flex: 1 1 auto;
+}
+
+.wpvitals-card-title {
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--wpvitals-muted);
+	margin: 0 0 8px;
+}
+
+.wpvitals-card-value {
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.35;
+	color: var(--wpvitals-text);
+}
+
+.wpvitals-card-meta {
+	color: var(--wpvitals-muted);
+	font-size: 12px;
+	margin-top: 2px;
+}
+
+/* Gauge semicircular del Health Score. */
+.wpvitals-gauge {
+	position: relative;
+	width: 180px;
+	height: 90px;
+	margin: 6px auto 4px;
+	overflow: hidden;
+	--gauge-color: var(--wpvitals-muted-soft);
+	--gauge-track: #e8eaee;
+}
+
+.wpvitals-gauge-fill {
+	position: absolute;
+	inset: 0 0 -50%;
+	width: 100%;
+	height: 200%;
+	border-radius: 50%;
+	background: conic-gradient(from 270deg,
+			var(--gauge-color) 0deg var(--p, 0deg),
+			var(--gauge-track) var(--p, 0deg) 360deg);
+	-webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 13px), #000 calc(100% - 12px));
+	mask: radial-gradient(farthest-side, transparent calc(100% - 13px), #000 calc(100% - 12px));
+}
+
+.wpvitals-gauge-healthy {
+	--gauge-color: #12b76a;
+}
+
+.wpvitals-gauge-attention {
+	--gauge-color: #f79009;
+}
+
+.wpvitals-gauge-critical {
+	--gauge-color: #d92d20;
+}
+
+.wpvitals-gauge-value {
+	position: absolute;
+	bottom: 2px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 34px;
+	font-weight: 800;
+	line-height: 1;
+	color: var(--wpvitals-text);
+}
+
+/* Tarjetas de detalles técnicos. */
+.wpvitals-tech-pair {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.wpvitals-tech {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.wpvitals-tech-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	border-radius: 9px;
+	flex: 0 0 auto;
+}
+
+.wpvitals-tech-icon svg {
+	text-align: center;
+}
+
+.wpvitals-tech-icon-globe {
+	background: var(--wpvitals-blue-bg);
+	color: var(--wpvitals-blue);
+}
+
+.wpvitals-tech-icon-wp {
+	background: #f0f0f1;
+	color: #1d2327;
+	font-weight: 800;
+	font-size: 19px;
+}
+
+.wpvitals-tech-icon-php {
+	background: #dbe9ff;
+	color: #4f5d95;
+	font-family: 'Courier New', monospace;
+	font-size: 13px;
+	font-weight: 800;
+}
+
+.wpvitals-tech-icon-server {
+	background: var(--wpvitals-amber-bg);
+	color: var(--wpvitals-amber);
+}
+
+.wpvitals-tech-text {
+	min-width: 0;
+}
+
+.wpvitals-tech-label {
+	color: var(--wpvitals-muted);
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.wpvitals-tech-value {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--wpvitals-text);
+	word-break: break-word;
+}
+
+.wpvitals-site-url a {
+	font-size: 13px;
+	word-break: break-all;
+	text-decoration: none;
+}
+
+.wpvitals-site-url a:hover {
+	text-decoration: underline;
+}
+
+/* Tarjetas de hallazgos clave. */
+.wpvitals-stat {
+	text-align: center;
+	padding: 20px 18px;
+}
+
+.wpvitals-stat-value {
+	font-size: 38px;
+	font-weight: 800;
+	line-height: 1;
+}
+
+.wpvitals-stat-value-good {
+	color: var(--wpvitals-green);
+}
+
+.wpvitals-stat-value-bad {
+	color: var(--wpvitals-red);
+}
+
+.wpvitals-stat-label {
+	color: var(--wpvitals-muted);
+	font-size: 13px;
+	margin: 6px 0 10px;
+}
+
+.wpvitals-badge {
+	display: inline-block;
+	padding: 3px 12px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 600;
+	border: 1px solid transparent;
+}
+
+.wpvitals-badge-good {
+	background: var(--wpvitals-green-bg);
+	color: var(--wpvitals-green);
+	border-color: var(--wpvitals-green-border);
+}
+
+.wpvitals-badge-bad {
+	background: var(--wpvitals-red-bg);
+	color: var(--wpvitals-red);
+	border-color: var(--wpvitals-red-border);
+}
+
+.wpvitals-badge-warn {
+	background: var(--wpvitals-amber-bg);
+	color: var(--wpvitals-amber);
+	border-color: var(--wpvitals-amber-border);
+}
+
+/* Tablas de hallazgos. */
+.wpvitals-section {
+	margin-top: 24px;
+}
+
+.wpvitals-section-title {
+	font-size: 15px;
+	font-weight: 600;
+	margin: 0 0 10px;
+	color: var(--wpvitals-text);
+}
+
+.wpvitals-table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--wpvitals-border);
+	border-radius: 10px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.wpvitals-table th {
+	background: #f9fafb;
+	border-bottom: 1px solid var(--wpvitals-border);
+	color: var(--wpvitals-muted);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	text-align: left;
+	padding: 10px 14px;
+}
+
+.wpvitals-table th:first-child {
+	width: 25%;
+}
+
+.wpvitals-table th:nth-child(3) {
+	width: 120px;
+}
+
+.wpvitals-table th:nth-child(4) {
+	width: 150px;
+}
+
+.wpvitals-table td {
+	padding: 11px 14px;
+	vertical-align: top;
+	border-bottom: 1px solid #f0f1f3;
+	font-size: 13px;
+	overflow-wrap: break-word;
+}
+
+.wpvitals-table tbody tr:nth-child(odd) {
+	background: var(--wpvitals-row-alt);
+}
+
+.wpvitals-table tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.wpvitals-finding-cell {
+	padding-right: 8px;
+}
+
+.wpvitals-finding-title {
+	font-weight: 600;
+	color: var(--wpvitals-text);
+}
+
+.wpvitals-info-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 14px;
+	height: 14px;
+	margin-left: 5px;
+	border: 1px solid var(--wpvitals-muted-soft);
+	border-radius: 50%;
+	color: var(--wpvitals-muted-soft);
+	font-size: 9px;
+	font-weight: 700;
+	line-height: 1;
+	cursor: help;
+}
+
+.wpvitals-finding-id {
+	color: var(--wpvitals-muted-soft);
+	font-size: 11px;
+	font-family: Consolas, Monaco, monospace;
+}
+
+.wpvitals-finding-value {
+	color: var(--wpvitals-green);
+	font-size: 12px;
+	word-break: break-word;
+}
+
+.wpvitals-severity {
+	display: inline-flex;
+	align-items: center;
+	padding: 3px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 600;
+	border: 1px solid transparent;
+}
+
+.wpvitals-severity-warning {
+	background: var(--wpvitals-amber-bg);
+	color: var(--wpvitals-amber);
+	border-color: var(--wpvitals-amber-border);
+}
+
+.wpvitals-severity-critical,
+.wpvitals-severity-error {
+	background: var(--wpvitals-red-bg);
+	color: var(--wpvitals-red);
+	border-color: var(--wpvitals-red-border);
+}
+
+.wpvitals-severity-info {
+	background: var(--wpvitals-blue-bg);
+	color: var(--wpvitals-blue);
+	border-color: var(--wpvitals-blue-border);
+}
+
+.wpvitals-severity-ok {
+	background: var(--wpvitals-green-bg);
+	color: var(--wpvitals-green);
+	border-color: var(--wpvitals-green-border);
+}
+
+.wpvitals-action-col {
+	width: 150px;
+}
+
+.wpvitals-action-link {
+	font-size: 13px;
+	font-weight: 500;
+	text-decoration: none;
+	display: inline-block;
+	background: #fff;
+	border: 1px solid var(--wpvitals-border);
+	border-radius: 6px;
+	padding: 3px 10px;
+	color: var(--wpvitals-accent);
+}
+
+.wpvitals-action-link:hover {
+	border-color: var(--wpvitals-accent);
+}
+
+.wpvitals-action-disabled {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 500;
+	background: var(--wpvitals-red-bg);
+	border: 1px solid var(--wpvitals-red-border);
+	border-radius: 6px;
+	padding: 3px 10px;
+	color: var(--wpvitals-red);
+	cursor: not-allowed;
+	opacity: 0.8;
+}
+
+.wpvitals-ignore-link {
+	display: inline-block;
+	margin-top: 6px;
+	font-size: 12px;
+	color: var(--wpvitals-muted-soft);
+	text-decoration: none;
+}
+
+.wpvitals-ignore-link:hover {
+	color: var(--wpvitals-red);
+	text-decoration: underline;
+}
+
+/* Hallazgos ignorados. */
+.wpvitals-ignored {
+	margin: 24px 0 8px;
+}
+
+.wpvitals-ignored summary {
+	list-style: none;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: 600;
+	margin-bottom: 10px;
+	color: var(--wpvitals-text);
+}
+
+.wpvitals-ignored summary::-webkit-details-marker {
+	display: none;
+}
+
+.wpvitals-ignored summary::before {
+	content: '';
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-right: 8px;
+	border-left: 5px solid var(--wpvitals-muted);
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	transition: transform 0.15s ease;
+}
+
+.wpvitals-ignored[open] summary::before {
+	transform: rotate(90deg);
+}
+
+.wpvitals-restore-all {
+	font-weight: 400;
+	font-size: 12px;
+	margin-left: 12px;
+}
+
+/* Sub-lista de CVEs de un componente (toggle expandible). */
+.wpvitals-sub-list {
+	margin-top: 9px;
+	font-size: 12px;
+}
+
+.wpvitals-sub-list summary {
+	list-style: none;
+	cursor: pointer;
+	font-weight: 500;
+	color: var(--wpvitals-accent);
+}
+
+.wpvitals-sub-list summary::-webkit-details-marker {
+	display: none;
+}
+
+.wpvitals-sub-list summary::before {
+	content: '';
+	display: inline-block;
+	width: 0;
+	height: 0;
+	margin-right: 6px;
+	border-left: 5px solid var(--wpvitals-muted);
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	transition: transform 0.15s ease;
+}
+
+.wpvitals-sub-list[open] summary::before {
+	transform: rotate(90deg);
+}
+
+.wpvitals-sub-list-items {
+	margin: 8px 0 0;
+	padding-left: 20px;
+	list-style: disc;
+}
+
+.wpvitals-sub-list-items li {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 0 0 8px;
+}
+
+.wpvitals-sub-body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.wpvitals-sub-title {
+	margin-left: 6px;
+	font-weight: 500;
+}
+
+.wpvitals-sub-severity {
+	margin-right: 2px;
+}
+
+.wpvitals-sub-id {
+	color: var(--wpvitals-muted-soft);
+	font-family: Consolas, Monaco, monospace;
+	font-size: 11px;
+}
+
+.wpvitals-sub-meta {
+	display: block;
+	margin-top: 3px;
+	color: var(--wpvitals-muted);
+}
+
+.wpvitals-sub-actions {
+	flex: 0 0 auto;
+	text-align: right;
+	white-space: nowrap;
+	padding-right: 14px;
+}
+
+.wpvitals-sub-actions .wpvitals-ignore-link {
+	margin-top: 0;
+	margin-left: 10px;
+}
+
+.wpvitals-sub-actions .wpvitals-action-link {
+	padding: 2px 8px;
+	font-size: 12px;
+}
+
+/* Sub-row de desglose de CVEs (toggle expandible a ancho completo). */
+.wpvitals-sub-row td {
+	background: #fff;
+	padding-top: 2px;
+}
+
+/* Responsive. */
+@media (max-width: 1180px) {
+	.wpvitals-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.wpvitals-col-main {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (max-width: 782px) {
+	.wpvitals-wrap {
+		margin: 0 -10px;
+		padding: 14px 10px 24px;
+		min-height: 0;
+	}
+
+	.wpvitals-header {
+		gap: 12px;
+	}
+
+	.wpvitals-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.wpvitals-col-main {
+		grid-column: auto;
+	}
+
+	.wpvitals-scan-button {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.wpvitals-table {
+		display: block;
+		overflow-x: auto;
+		white-space: normal;
+	}
+}
