@@ -36,6 +36,7 @@ final class LocalChecks {
 			new FileEditCheck(),
 			new CronCheck(),
 			new LoopbackCheck(),
+			new SecurityHeadersCheck(),
 			new PluginsUpdatesCheck(),
 			new ThemesUpdatesCheck(),
 		);

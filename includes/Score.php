@@ -12,9 +12,10 @@ namespace WPVitals;
 /**
  * Puntuación de salud calculada a partir de los resultados de un escaneo.
  *
- * Parte de 100 puntos y descuenta los puntos embebidos en cada Result. El
- * total se mantiene entre 0 y 100 y se clasifica en tres estados. La lista de
- * descuentos aplicados queda expuesta de forma transparente.
+ * Parte de 100 puntos y descuenta los puntos embebidos en cada Result. Las
+ * vulnerabilidades del mismo componente solo descuentan una vez: se aplica la
+ * deducción más alta del grupo. El total se mantiene entre 0 y 100 y se
+ * clasifica en tres estados. La lista de descuentos quedan transparentes.
  */
 final class Score {
 
@@ -83,6 +84,7 @@ final class Score {
 	 */
 	public static function from_results( array $results ): self {
 		$deductions = array();
+		$vuln_worst = array();
 
 		foreach ( $results as $result ) {
 			if ( ! $result instanceof Result ) {
@@ -95,17 +97,61 @@ final class Score {
 				continue;
 			}
 
+			$id = $result->get_id();
+
+			if ( 0 === strpos( $id, 'vuln/' ) ) {
+				$component = self::vulnerability_component( $id );
+
+				if ( isset( $vuln_worst[ $component ] ) ) {
+					if ( $points > $vuln_worst[ $component ]['points'] ) {
+						$vuln_worst[ $component ] = array(
+							'id'     => $id,
+							'title'  => $result->get_title(),
+							'points' => $points,
+						);
+					}
+					continue;
+				}
+
+				$vuln_worst[ $component ] = array(
+					'id'     => $id,
+					'title'  => $result->get_title(),
+					'points' => $points,
+				);
+				continue;
+			}
+
 			$deductions[] = array(
-				'id'     => $result->get_id(),
+				'id'     => $id,
 				'title'  => $result->get_title(),
 				'points' => $points,
 			);
+		}
+
+		foreach ( $vuln_worst as $worst ) {
+			$deductions[] = $worst;
 		}
 
 		$total = self::MAX - array_sum( array_column( $deductions, 'points' ) );
 		$total = max( 0, min( self::MAX, $total ) );
 
 		return new self( $total, $deductions );
+	}
+
+	/**
+	 * Devuelve el componente (type/slug) de un id de vulnerabilidad.
+	 *
+	 * Los ids tienen la forma `vuln/{type}/{slug}/{vulnerabilidad}`; para
+	 * agrupar por componente se ignoran la parte `vuln` y el id del CVE.
+	 *
+	 * @param string $id Identificador del hallazgo.
+	 *
+	 * @return string
+	 */
+	private static function vulnerability_component( string $id ): string {
+		$parts = explode( '/', $id );
+
+		return isset( $parts[1] ) && isset( $parts[2] ) ? $parts[1] . '/' . $parts[2] : $id;
 	}
 
 	/**

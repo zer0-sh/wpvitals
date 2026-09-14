@@ -174,4 +174,44 @@ final class Result {
 		return self::SEVERITY_OK === $this->severity
 			|| self::SEVERITY_INFO === $this->severity;
 	}
+
+	/**
+	 * Convierte el resultado a un array plano persistible.
+	 *
+	 * @return array
+	 */
+	public function to_array(): array {
+		return array(
+			'id'              => $this->id,
+			'title'           => $this->title,
+			'severity'        => $this->severity,
+			'value'           => $this->value,
+			'recommendation'  => $this->recommendation,
+			'points_deducted' => $this->points_deducted,
+		);
+	}
+
+	/**
+	 * Reconstruye un resultado desde un array plano.
+	 *
+	 * @param array $data Array generado por to_array().
+	 *
+	 * @return self
+	 *
+	 * @throws \InvalidArgumentException Si faltan campos obligatorios.
+	 */
+	public static function from_array( array $data ): self {
+		if ( ! isset( $data['id'] ) || ! isset( $data['title'] ) || ! isset( $data['severity'] ) ) {
+			throw new \InvalidArgumentException( 'Resultado persistido incompleto.' );
+		}
+
+		return new self(
+			(string) $data['id'],
+			(string) $data['title'],
+			(string) $data['severity'],
+			array_key_exists( 'value', $data ) ? $data['value'] : null,
+			isset( $data['recommendation'] ) ? (string) $data['recommendation'] : '',
+			isset( $data['points_deducted'] ) ? (int) $data['points_deducted'] : 0
+		);
+	}
 }
