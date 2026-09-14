@@ -17,7 +17,7 @@ final class LocalChecksTest extends TestCase {
 			$checker->add_check( $check );
 		}
 
-		$this->assertSame( 14, $checker->count() );
+		$this->assertSame( 15, $checker->count() );
 	}
 
 	public function test_ids_estables_por_categoria(): void {
@@ -30,6 +30,7 @@ final class LocalChecksTest extends TestCase {
 		$this->assertContains( 'core/version', $ids );
 		$this->assertContains( 'php/version', $ids );
 		$this->assertContains( 'security/https', $ids );
+		$this->assertContains( 'headers/security', $ids );
 		$this->assertContains( 'system/cron', $ids );
 		$this->assertContains( 'components/plugins', $ids );
 		$this->assertContains( 'components/themes', $ids );

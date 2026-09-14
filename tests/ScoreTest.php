@@ -84,6 +84,44 @@ final class ScoreTest extends TestCase {
 		$this->assertSame( Score::STATE_CRITICAL, $score->get_state() );
 	}
 
+	public function test_vulnerabilidades_del_mismo_componente_descuentan_una_vez(): void {
+		$score = Score::from_results(
+			array(
+				$this->result( 'vuln/plugin/contact-form-7/CVE-1', 20 ),
+				$this->result( 'vuln/plugin/contact-form-7/CVE-2', 5 ),
+			)
+		);
+
+		$this->assertSame( 80, $score->get_total() );
+		$this->assertCount( 1, $score->get_deductions() );
+		$this->assertSame( 'vuln/plugin/contact-form-7/CVE-1', $score->get_deductions()[0]['id'] );
+		$this->assertSame( 20, $score->get_deductions()[0]['points'] );
+	}
+
+	public function test_vulnerabilidades_de_distintos_componentes_descuentan_cada_una(): void {
+		$score = Score::from_results(
+			array(
+				$this->result( 'vuln/plugin/contact-form-7/CVE-1', 20 ),
+				$this->result( 'vuln/plugin/akismet/CVE-2', 5 ),
+			)
+		);
+
+		$this->assertSame( 75, $score->get_total() );
+		$this->assertCount( 2, $score->get_deductions() );
+	}
+
+	public function test_vulnerabilidades_del_mismo_componente_toman_la_peor(): void {
+		$score = Score::from_results(
+			array(
+				$this->result( 'vuln/plugin/contact-form-7/CVE-1', 5 ),
+				$this->result( 'vuln/plugin/contact-form-7/CVE-2', 20 ),
+			)
+		);
+
+		$this->assertSame( 80, $score->get_total() );
+		$this->assertSame( 'vuln/plugin/contact-form-7/CVE-2', $score->get_deductions()[0]['id'] );
+	}
+
 	/**
 	 * @dataProvider provider_limites_de_estado
 	 */
