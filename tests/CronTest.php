@@ -55,9 +55,9 @@ final class CronTest extends TestCase {
 		$schedules = Cron::add_schedules( array( 'daily' => array( 'interval' => 86400, 'display' => 'A diario' ) ) );
 
 		$this->assertSame( Settings::INTERVAL_WEEKLY, $schedules[ Cron::RECURRENCE_WEEKLY ]['interval'] );
-		$this->assertSame( 'Semanalmente', $schedules[ Cron::RECURRENCE_WEEKLY ]['display'] );
+		$this->assertSame( 'Weekly', $schedules[ Cron::RECURRENCE_WEEKLY ]['display'] );
 		$this->assertSame( Settings::INTERVAL_MONTHLY, $schedules[ Cron::RECURRENCE_MONTHLY ]['interval'] );
-		$this->assertSame( 'Mensualmente', $schedules[ Cron::RECURRENCE_MONTHLY ]['display'] );
+		$this->assertSame( 'Monthly', $schedules[ Cron::RECURRENCE_MONTHLY ]['display'] );
 		$this->assertSame( 86400, $schedules['daily']['interval'] );
 	}
 

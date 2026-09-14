@@ -188,8 +188,8 @@ final class MailReportTest extends TestCase {
 		$body   = $report->body( $this->outcome( ScanOutcome::ORIGIN_SCHEDULED ) );
 
 		$this->assertStringContainsString( '80/100', $body );
-		$this->assertStringContainsString( 'Vulnerabilidades activas: 1', $body );
-		$this->assertStringContainsString( 'Actualizaciones pendientes: 1', $body );
+		$this->assertStringContainsString( 'Active vulnerabilities: 1', $body );
+		$this->assertStringContainsString( 'Pending updates: 1', $body );
 		$this->assertStringContainsString( 'XSS en formulario', $body );
 		$this->assertStringContainsString( 'Actualiza a una versión segura.', $body );
 	}
@@ -201,7 +201,7 @@ final class MailReportTest extends TestCase {
 			ScanOutcome::ORIGIN_SCHEDULED
 		);
 
-		$this->assertStringContainsString( 'No se han detectado hallazgos relevantes.', $report->body( $outcome ) );
+		$this->assertStringContainsString( 'No relevant findings detected.', $report->body( $outcome ) );
 		$this->assertStringNotContainsString( '- [', $report->body( $outcome ) );
 	}
 

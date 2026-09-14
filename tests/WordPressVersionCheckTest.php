@@ -36,7 +36,7 @@ final class WordPressVersionCheckTest extends TestCase {
 
 		$this->assertSame( Result::SEVERITY_INFO, $result->get_severity() );
 		$this->assertSame( 0, $result->get_points_deducted() );
-		$this->assertStringContainsString( 'deshabilitadas', $result->get_recommendation() );
+		$this->assertStringContainsString( 'disabled', $result->get_recommendation() );
 	}
 
 	public function test_version_instalada_antigua_avisa(): void {

@@ -43,10 +43,10 @@ final class DashboardDataTest extends TestCase {
 		$this->assertTrue( $data['has_result'] );
 		$this->assertSame( 75, $data['score_total'] );
 		$this->assertSame( Score::STATE_ATTENTION, $data['score_state'] );
-		$this->assertSame( 'Requiere atención', $data['score_label'] );
+		$this->assertSame( 'Needs attention', $data['score_label'] );
 		$this->assertSame( 1700000000, $data['completed_at'] );
 		$this->assertSame( ScanOutcome::ORIGIN_SCHEDULED, $data['origin'] );
-		$this->assertSame( 'Programado', $data['origin_label'] );
+		$this->assertSame( 'Scheduled', $data['origin_label'] );
 		$this->assertSame( 1, $data['vulnerabilities_count'] );
 		$this->assertSame( 1, $data['pending_updates_count'] );
 	}
@@ -57,7 +57,7 @@ final class DashboardDataTest extends TestCase {
 
 		$this->assertSame( array( 'security', 'plugin', 'vuln', 'test' ), array_column( $groups, 'key' ) );
 		$this->assertCount( 1, $groups[0]['findings'] );
-		$this->assertSame( 'Seguridad', $groups[0]['label'] );
+		$this->assertSame( 'Security', $groups[0]['label'] );
 	}
 
 	public function test_excluye_los_resultados_ok(): void {
@@ -86,7 +86,7 @@ final class DashboardDataTest extends TestCase {
 		$this->assertNotNull( $vuln );
 		$this->assertSame( 'plugins', $vuln['screen'] );
 		$this->assertSame( 'https://example.com/cve', $vuln['link'] );
-		$this->assertSame( 'Crítico', $vuln['severity_label'] );
+		$this->assertSame( 'Critical', $vuln['severity_label'] );
 		$this->assertSame( 15, $vuln['points'] );
 		$this->assertStringContainsString( 'WPScan', $vuln['description'] );
 	}
@@ -178,7 +178,7 @@ final class DashboardDataTest extends TestCase {
 		$data = DashboardData::build( $outcome );
 
 		$this->assertSame( array( 'headers' ), array_column( $data['categories'], 'key' ) );
-		$this->assertSame( 'Cabeceras de seguridad', $data['categories'][0]['label'] );
+		$this->assertSame( 'Security headers', $data['categories'][0]['label'] );
 		$this->assertFalse( $data['categories'][0]['findings'][0]['is_ok'] );
 	}
 
@@ -218,11 +218,11 @@ final class DashboardDataTest extends TestCase {
 	}
 
 	public function test_etiquetas_de_estados_y_severidades(): void {
-		$this->assertSame( 'Saludable', DashboardData::score_label( Score::STATE_HEALTHY ) );
-		$this->assertSame( 'Crítico', DashboardData::score_label( Score::STATE_CRITICAL ) );
+		$this->assertSame( 'Healthy', DashboardData::score_label( Score::STATE_HEALTHY ) );
+		$this->assertSame( 'Critical', DashboardData::score_label( Score::STATE_CRITICAL ) );
 		$this->assertSame( 'Manual', DashboardData::origin_label( ScanOutcome::ORIGIN_MANUAL ) );
-		$this->assertSame( 'Aviso', DashboardData::severity_label( Result::SEVERITY_WARNING ) );
-		$this->assertSame( 'Núcleo de WordPress', DashboardData::category_label( 'core' ) );
-		$this->assertSame( 'Cabeceras de seguridad', DashboardData::category_label( 'headers' ) );
+		$this->assertSame( 'Warning', DashboardData::severity_label( Result::SEVERITY_WARNING ) );
+		$this->assertSame( 'WordPress core', DashboardData::category_label( 'core' ) );
+		$this->assertSame( 'Security headers', DashboardData::category_label( 'headers' ) );
 	}
 }
