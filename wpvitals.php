@@ -3,7 +3,7 @@
  * Plugin Name: WPVitals
  * Plugin URI:  https://github.com/zer0-sh/wpvitals
  * Description: Ultra lightweight WordPress plugin to monitor your website's performance and uptime.
- * Version:     0.1.0
+ * Version:     0.1.1
  * Requires at least: 6.5
  * Requires PHP: 7.4
  * Author:      WPVitals
@@ -24,7 +24,7 @@ if ( ! defined( 'WPVITALS_PLUGIN_FILE' ) ) {
 }
 
 if ( ! defined( 'WPVITALS_VERSION' ) ) {
-	define( 'WPVITALS_VERSION', '0.1.0' );
+	define( 'WPVITALS_VERSION', '0.1.1' );
 }
 
 $wpvitals_autoload = __DIR__ . '/vendor/autoload.php';
