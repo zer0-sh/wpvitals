@@ -5,11 +5,6 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
-    inputs:
-      tag:
-        description: Existing version tag to publish (for example, v0.1.0)
-        required: true
-        type: string
 
 permissions:
   contents: write
@@ -19,26 +14,56 @@ jobs:
     name: Build and publish plugin ZIP
     runs-on: ubuntu-latest
 
-    env:
-      RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
-
     steps:
-      - name: Checkout release tag
+      - name: Checkout source
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+          ref: ${{ github.event_name == 'push' && github.ref || 'main' }}
           fetch-depth: 0
 
-      - name: Validate release tag
+      - name: Prepare release tag
         run: |
           set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            BASE_VERSION="$(sed -n "s/^[[:space:]]*define( 'WPVITALS_VERSION', '\([^']*\)'.*/\1/p" wpvitals.php | head -n 1)"
+            if [[ ! "${BASE_VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "::error::Invalid current plugin version: ${BASE_VERSION}"
+              exit 1
+            fi
+
+            IFS='.' read -r MAJOR MINOR PATCH <<< "${BASE_VERSION}"
+            VERSION="${MAJOR}.${MINOR}.$((PATCH + 1))"
+            RELEASE_TAG="v${VERSION}"
+
+            if git ls-remote --exit-code --tags origin "refs/tags/${RELEASE_TAG}" >/dev/null 2>&1; then
+              echo "::error::Tag ${RELEASE_TAG} already exists"
+              exit 1
+            fi
+
+            sed -i -E "s/^( \* Version:[[:space:]]+)[0-9.]+/\1${VERSION}/" wpvitals.php
+            sed -i -E "s/(define\( 'WPVITALS_VERSION', ')[0-9.]+(' \);)/\1${VERSION}\2/" wpvitals.php
+            sed -i -E "s/^(Stable tag: )[0-9.]+/\1${VERSION}/" readme.txt
+
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add wpvitals.php readme.txt
+            git commit -m "chore: prepare release ${VERSION}"
+            git push origin HEAD:main
+
+            git tag -a "${RELEASE_TAG}" -m "Release ${RELEASE_TAG}"
+            git push origin "${RELEASE_TAG}"
+          else
+            RELEASE_TAG="${GITHUB_REF_NAME}"
+            VERSION="${RELEASE_TAG#v}"
+          fi
 
           if [[ ! "${RELEASE_TAG}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "::error::Release tag must use the vX.Y.Z format: ${RELEASE_TAG}"
             exit 1
           fi
 
-          VERSION="${RELEASE_TAG#v}"
+          echo "RELEASE_TAG=${RELEASE_TAG}" >> "${GITHUB_ENV}"
           echo "VERSION=${VERSION}" >> "${GITHUB_ENV}"
           echo "Publishing ${RELEASE_TAG} (version ${VERSION})"
 
