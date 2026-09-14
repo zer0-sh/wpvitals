@@ -49,7 +49,7 @@ final class PhpMemoryCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Límite de memoria de PHP', 'wpvitals' );
+		return __( 'PHP memory limit', 'wpvitals' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ final class PhpMemoryCheck extends AbstractCheck {
 			return $this->result(
 				Result::SEVERITY_OK,
 				$limit,
-				__( 'memory_limit está configurado sin límite (ilimitado).', 'wpvitals' )
+				__( 'memory_limit is set without a limit (unlimited).', 'wpvitals' )
 			);
 		}
 
@@ -75,8 +75,8 @@ final class PhpMemoryCheck extends AbstractCheck {
 			Result::SEVERITY_WARNING,
 			$limit,
 			sprintf(
-				/* translators: 1: límite actual, 2: límite recomendado. */
-				__( 'memory_limit está en %1$s; WordPress recomienda al menos %2$s. Aumenta el límite en php.ini.', 'wpvitals' ),
+				/* translators: 1: current limit, 2: recommended limit. */
+				__( 'memory_limit is at %1$s; WordPress recommends at least %2$s. Increase the limit in php.ini.', 'wpvitals' ),
 				$limit,
 				self::MIN_RECOMMENDED
 			),

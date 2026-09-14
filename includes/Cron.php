@@ -159,12 +159,12 @@ final class Cron {
 	public static function add_schedules( array $schedules ): array {
 		$schedules[ self::RECURRENCE_WEEKLY ] = array(
 			'interval' => Settings::INTERVAL_WEEKLY,
-			'display'  => __( 'Semanalmente', 'wpvitals' ),
+			'display'  => __( 'Weekly', 'wpvitals' ),
 		);
 
 		$schedules[ self::RECURRENCE_MONTHLY ] = array(
 			'interval' => Settings::INTERVAL_MONTHLY,
-			'display'  => __( 'Mensualmente', 'wpvitals' ),
+			'display'  => __( 'Monthly', 'wpvitals' ),
 		);
 
 		return $schedules;

@@ -244,8 +244,8 @@ final class Scanner {
 	 */
 	private function recommendation_for( Vulnerability $vulnerability ): string {
 		$label = sprintf(
-			/* translators: 1: nombre de la fuente (p. ej. CVE-2024-12345), 2: severidad. */
-			__( 'Vulnerabilidad %1$s de severidad %2$s. Actualiza el componente a una versión segura.', 'wpvitals' ),
+			/* translators: 1: source name (e.g. CVE-2024-12345), 2: severity. */
+			__( 'Vulnerability %1$s with %2$s severity. Update the component to a secure version.', 'wpvitals' ),
 			$vulnerability->get_source_name(),
 			$vulnerability->get_severity()
 		);

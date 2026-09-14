@@ -46,7 +46,7 @@ final class PhpDisplayErrorsCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Visualización de errores PHP', 'wpvitals' );
+		return __( 'PHP error display', 'wpvitals' );
 	}
 
 	/**
@@ -62,7 +62,7 @@ final class PhpDisplayErrorsCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$enabled,
-			__( 'display_errors está activado y muestra errores PHP a los visitantes. Desactívalo en producción con display_errors = Off.', 'wpvitals' ),
+			__( 'display_errors is enabled and shows PHP errors to visitors. Disable it in production with display_errors = Off.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

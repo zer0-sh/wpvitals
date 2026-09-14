@@ -50,7 +50,7 @@ final class DebugCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Modo debug de WordPress', 'wpvitals' );
+		return __( 'WordPress debug mode', 'wpvitals' );
 	}
 
 	/**
@@ -69,7 +69,7 @@ final class DebugCheck extends AbstractCheck {
 			return $this->result(
 				Result::SEVERITY_WARNING,
 				$config,
-				__( 'WP_DEBUG y WP_DEBUG_DISPLAY están activados; los errores PHP pueden mostrarse en producción. Desactívalos en wp-config.php.', 'wpvitals' ),
+				__( 'WP_DEBUG and WP_DEBUG_DISPLAY are enabled; PHP errors can be shown in production. Disable them in wp-config.php.', 'wpvitals' ),
 				5
 			);
 		}
@@ -77,7 +77,7 @@ final class DebugCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$config,
-			__( 'WP_DEBUG está activado en producción; desactívalo en wp-config.php.', 'wpvitals' ),
+			__( 'WP_DEBUG is enabled in production; disable it in wp-config.php.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

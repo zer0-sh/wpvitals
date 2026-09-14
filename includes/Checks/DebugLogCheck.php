@@ -47,7 +47,7 @@ final class DebugLogCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Registro de errores de WordPress', 'wpvitals' );
+		return __( 'WordPress error log', 'wpvitals' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ final class DebugLogCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$logging,
-			__( 'WP_DEBUG_LOG está activado; el archivo debug.log puede contener datos sensibles y ser accesible públicamente. Desactívalo en producción.', 'wpvitals' ),
+			__( 'WP_DEBUG_LOG is enabled; the debug.log file can contain sensitive data and be publicly accessible. Disable it in production.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

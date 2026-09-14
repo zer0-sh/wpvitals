@@ -62,7 +62,7 @@ final class PhpExtensionsCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Extensiones PHP requeridas', 'wpvitals' );
+		return __( 'Required PHP extensions', 'wpvitals' );
 	}
 
 	/**
@@ -85,8 +85,8 @@ final class PhpExtensionsCheck extends AbstractCheck {
 			Result::SEVERITY_WARNING,
 			$missing,
 			sprintf(
-				/* translators: %s: lista de extensiones PHP requeridas no encontradas. */
-				__( 'Faltan extensiones PHP requeridas por WordPress: %s. Instálalas para un funcionamiento completo.', 'wpvitals' ),
+				/* translators: %s: list of required PHP extensions not found. */
+				__( 'Missing PHP extensions required by WordPress: %s. Install them for full functionality.', 'wpvitals' ),
 				\implode( ', ', $missing )
 			),
 			ScoreDiscounts::MINOR

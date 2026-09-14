@@ -63,7 +63,7 @@ final class XmlRpcCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$enabled,
-			__( 'XML-RPC está habilitado y se usa en ataques de fuerza bruta. Desactívalo devolviendo false desde el filtro xmlrpc_enabled o bloqueando xmlrpc.php.', 'wpvitals' ),
+			__( 'XML-RPC is enabled and used in brute-force attacks. Disable it by returning false from the xmlrpc_enabled filter or blocking xmlrpc.php.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

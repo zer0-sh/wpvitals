@@ -90,7 +90,7 @@ final class WordPressVersionCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Versión de WordPress', 'wpvitals' );
+		return __( 'WordPress version', 'wpvitals' );
 	}
 
 	/**
@@ -109,7 +109,7 @@ final class WordPressVersionCheck extends AbstractCheck {
 					'available'        => null,
 					'auto_update_mode' => $mode,
 				),
-				__( 'No se pudo obtener la versión estable disponible de WordPress; revisa la caché de actualizaciones del sitio.', 'wpvitals' )
+				__( 'Could not fetch the available stable WordPress version; check the site update cache.', 'wpvitals' )
 			);
 		}
 
@@ -126,7 +126,7 @@ final class WordPressVersionCheck extends AbstractCheck {
 				return $this->result(
 					Result::SEVERITY_INFO,
 					$value,
-					__( 'WordPress está actualizado, pero las actualizaciones automáticas están deshabilitadas; actívalas para recibir parches de seguridad.', 'wpvitals' )
+					__( 'WordPress is up to date, but automatic updates are disabled; enable them to receive security patches.', 'wpvitals' )
 				);
 			}
 
@@ -138,8 +138,8 @@ final class WordPressVersionCheck extends AbstractCheck {
 				Result::SEVERITY_WARNING,
 				$value,
 				sprintf(
-					/* translators: 1: versión instalada, 2: versión estable disponible. */
-					__( 'Hay una actualización de WordPress pendiente (instalado %1$s, disponible %2$s). Ejecuta la actualización desde el admin.', 'wpvitals' ),
+					/* translators: 1: installed version, 2: available stable version. */
+					__( 'A WordPress update is pending (installed %1$s, available %2$s). Run the update from the admin.', 'wpvitals' ),
 					$installed,
 					$available['current']
 				),
@@ -151,8 +151,8 @@ final class WordPressVersionCheck extends AbstractCheck {
 			Result::SEVERITY_WARNING,
 			$value,
 			sprintf(
-				/* translators: 1: versión instalada, 2: versión estable disponible. */
-				__( 'WordPress %1$s está desactualizado y las actualizaciones automáticas están deshabilitadas; actualiza a %2$s y activa los auto-updates.', 'wpvitals' ),
+				/* translators: 1: installed version, 2: available stable version. */
+				__( 'WordPress %1$s is outdated and automatic updates are disabled; update to %2$s and enable auto-updates.', 'wpvitals' ),
 				$installed,
 				$available['current']
 			),

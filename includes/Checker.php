@@ -107,7 +107,7 @@ final class Checker {
 							$check->get_title(),
 							Result::SEVERITY_ERROR,
 							null,
-							__( 'El check devolvió un resultado inválido.', 'wpvitals' ),
+							__( 'The check returned an invalid result.', 'wpvitals' ),
 							0
 						);
 					}
@@ -136,8 +136,8 @@ final class Checker {
 			Result::SEVERITY_ERROR,
 			null,
 			sprintf(
-				/* translators: %s: mensaje del error interno del check. */
-				__( 'Error interno del check: %s', 'wpvitals' ),
+				/* translators: %s: internal check error message. */
+				__( 'Internal check error: %s', 'wpvitals' ),
 				$e->getMessage()
 			),
 			0

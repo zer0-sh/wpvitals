@@ -62,7 +62,7 @@ final class PluginsUpdatesCheck extends AbstractCheck implements MultiCheckInter
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Plugins desactualizados', 'wpvitals' );
+		return __( 'Outdated plugins', 'wpvitals' );
 	}
 
 	/**
@@ -91,15 +91,15 @@ final class PluginsUpdatesCheck extends AbstractCheck implements MultiCheckInter
 		foreach ( $outdated as $plugin_file => $new_version ) {
 			$results[] = new Result(
 				'plugin/' . $this->plugin_slug( (string) $plugin_file ),
-				__( 'Plugin desactualizado', 'wpvitals' ),
+				__( 'Outdated plugin', 'wpvitals' ),
 				Result::SEVERITY_WARNING,
 				array(
 					'plugin'      => (string) $plugin_file,
 					'new_version' => (string) $new_version,
 				),
 				sprintf(
-					/* translators: 1: archivo del plugin, 2: nueva versión, 3: URL de actualizaciones. */
-					__( 'El plugin %1$s tiene disponible la versión %2$s. Actualízalo desde la pantalla nativa de actualizaciones: %3$s', 'wpvitals' ),
+					/* translators: 1: plugin file, 2: new version, 3: updates URL. */
+					__( 'Plugin %1$s has version %2$s available. Update it from the native updates screen: %3$s', 'wpvitals' ),
 					(string) $plugin_file,
 					(string) $new_version,
 					$url

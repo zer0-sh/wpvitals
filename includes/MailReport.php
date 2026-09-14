@@ -159,10 +159,10 @@ final class MailReport {
 				$this->state_label( $outcome->get_state() )
 			),
 			'',
-			sprintf( '%s: %d', __( 'Vulnerabilidades activas', 'wpvitals' ), $outcome->count_vulnerabilities() ),
-			sprintf( '%s: %d', __( 'Actualizaciones pendientes', 'wpvitals' ), $outcome->count_pending_updates() ),
+			sprintf( '%s: %d', __( 'Active vulnerabilities', 'wpvitals' ), $outcome->count_vulnerabilities() ),
+			sprintf( '%s: %d', __( 'Pending updates', 'wpvitals' ), $outcome->count_pending_updates() ),
 			'',
-			__( 'Hallazgos:', 'wpvitals' ),
+			__( 'Findings:', 'wpvitals' ),
 		);
 
 		$added = 0;
@@ -181,8 +181,8 @@ final class MailReport {
 
 			if ( self::MAX_FINDINGS === $added ) {
 				$lines[] = sprintf(
-					/* translators: %d: número de hallazgos adicionales. */
-					__( '…y %d hallazgos más.', 'wpvitals' ),
+					/* translators: %d: number of additional findings. */
+					__( '…and %d more findings.', 'wpvitals' ),
 					$total - $added
 				);
 				break;
@@ -199,7 +199,7 @@ final class MailReport {
 		}
 
 		if ( 0 === $added ) {
-			$lines[] = __( 'No se han detectado hallazgos relevantes.', 'wpvitals' );
+			$lines[] = __( 'No relevant findings detected.', 'wpvitals' );
 		}
 
 		return implode( "\n", $lines );
@@ -215,14 +215,14 @@ final class MailReport {
 	private function state_label( string $state ): string {
 		switch ( $state ) {
 			case Score::STATE_HEALTHY:
-				return __( 'Saludable', 'wpvitals' );
+				return __( 'Healthy', 'wpvitals' );
 
 			case Score::STATE_CRITICAL:
-				return __( 'Crítico', 'wpvitals' );
+				return __( 'Critical', 'wpvitals' );
 
 			case Score::STATE_ATTENTION:
 			default:
-				return __( 'Requiere atención', 'wpvitals' );
+				return __( 'Needs attention', 'wpvitals' );
 		}
 	}
 
@@ -236,20 +236,20 @@ final class MailReport {
 	private function severity_label( string $severity ): string {
 		switch ( $severity ) {
 			case Result::SEVERITY_INFO:
-				return __( 'Información', 'wpvitals' );
+				return __( 'Info', 'wpvitals' );
 
 			case Result::SEVERITY_WARNING:
-				return __( 'Aviso', 'wpvitals' );
+				return __( 'Warning', 'wpvitals' );
 
 			case Result::SEVERITY_CRITICAL:
-				return __( 'Crítico', 'wpvitals' );
+				return __( 'Critical', 'wpvitals' );
 
 			case Result::SEVERITY_ERROR:
 				return __( 'Error', 'wpvitals' );
 
 			case Result::SEVERITY_OK:
 			default:
-				return __( 'Bien', 'wpvitals' );
+				return __( 'Good', 'wpvitals' );
 		}
 	}
 }

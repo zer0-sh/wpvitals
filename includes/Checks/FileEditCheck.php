@@ -47,7 +47,7 @@ final class FileEditCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Edición de archivos desde el admin', 'wpvitals' );
+		return __( 'File editing from the admin', 'wpvitals' );
 	}
 
 	/**
@@ -63,7 +63,7 @@ final class FileEditCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$disabled,
-			__( 'La edición de archivos desde WP-Admin está permitida; define DISALLOW_FILE_EDIT como true en wp-config.php.', 'wpvitals' ),
+			__( 'File editing from WP-Admin is allowed; set DISALLOW_FILE_EDIT to true in wp-config.php.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

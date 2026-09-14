@@ -65,7 +65,7 @@ final class LoopbackCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Peticiones loopback', 'wpvitals' );
+		return __( 'Loopback requests', 'wpvitals' );
 	}
 
 	/**
@@ -81,7 +81,7 @@ final class LoopbackCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$ok,
-			__( 'La petición loopback falló (timeout o conexión bloqueada); procesos como cron, actualizaciones y envíos de correo dependen de ella. Revisa firewalls, reglas del servidor y DNS.', 'wpvitals' ),
+			__( 'The loopback request failed (timeout or blocked connection); processes like cron, updates and email sending depend on it. Check firewalls, server rules and DNS.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

@@ -95,7 +95,7 @@ final class CronCheck extends AbstractCheck {
 			return $this->result(
 				Result::SEVERITY_INFO,
 				$value,
-				__( 'WP-Cron está deshabilitado; asegúrate de que un cron del sistema ejecuta wp-cron.php en lugar de depender de visitas.', 'wpvitals' )
+				__( 'WP-Cron is disabled; make sure a system cron runs wp-cron.php instead of relying on visits.', 'wpvitals' )
 			);
 		}
 
@@ -103,7 +103,7 @@ final class CronCheck extends AbstractCheck {
 			return $this->result(
 				Result::SEVERITY_WARNING,
 				$value,
-				__( 'WP-Cron está deshabilitado y no se detectan eventos relevantes; configura un cron externo que llame a wp-cron.php o reactiva WP-Cron.', 'wpvitals' ),
+				__( 'WP-Cron is disabled and no relevant events are detected; set up an external cron calling wp-cron.php or re-enable WP-Cron.', 'wpvitals' ),
 				5
 			);
 		}
@@ -115,7 +115,7 @@ final class CronCheck extends AbstractCheck {
 		return $this->result(
 			Result::SEVERITY_WARNING,
 			$value,
-			__( 'WP-Cron está activo pero no se detectan eventos relevantes; revisa que el sitio reciba tráfico o ejecuta un escaneo para disparar las tareas programadas.', 'wpvitals' ),
+			__( 'WP-Cron is active but no relevant events are detected; make sure the site receives traffic or run a scan to trigger scheduled tasks.', 'wpvitals' ),
 			ScoreDiscounts::MINOR
 		);
 	}

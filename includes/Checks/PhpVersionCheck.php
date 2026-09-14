@@ -77,7 +77,7 @@ final class PhpVersionCheck extends AbstractCheck {
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Versión de PHP', 'wpvitals' );
+		return __( 'PHP version', 'wpvitals' );
 	}
 
 	/**
@@ -96,8 +96,8 @@ final class PhpVersionCheck extends AbstractCheck {
 					'security_until' => null,
 				),
 				sprintf(
-					/* translators: %s: versión de PHP detectada. */
-					__( 'No se dispone de datos del ciclo de vida para PHP %s; verifica su estado de soporte oficial.', 'wpvitals' ),
+					/* translators: %s: detected PHP version. */
+					__( 'No lifecycle data available for PHP %s; check its official support status.', 'wpvitals' ),
 					$version
 				)
 			);
@@ -117,8 +117,8 @@ final class PhpVersionCheck extends AbstractCheck {
 					'security_until' => $security_until,
 				),
 				sprintf(
-					/* translators: 1: versión de PHP, 2: fecha EOL. */
-					__( 'PHP %1$s finalizó su soporte de seguridad el %2$s; actualiza a una versión soportada.', 'wpvitals' ),
+					/* translators: 1: PHP version, 2: EOL date. */
+					__( 'PHP %1$s ended security support on %2$s; update to a supported version.', 'wpvitals' ),
 					$version,
 					$security_until
 				),
@@ -135,8 +135,8 @@ final class PhpVersionCheck extends AbstractCheck {
 					'security_until' => $security_until,
 				),
 				sprintf(
-					/* translators: 1: versión de PHP, 2: fecha EOL. */
-					__( 'PHP %1$s dejará de recibir soporte de seguridad el %2$s; planifica la actualización.', 'wpvitals' ),
+					/* translators: 1: PHP version, 2: EOL date. */
+					__( 'PHP %1$s will stop receiving security support on %2$s; plan the update.', 'wpvitals' ),
 					$version,
 					$security_until
 				),

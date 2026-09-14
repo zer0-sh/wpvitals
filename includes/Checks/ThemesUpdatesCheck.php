@@ -64,7 +64,7 @@ final class ThemesUpdatesCheck extends AbstractCheck implements MultiCheckInterf
 	 * {@inheritDoc}
 	 */
 	public function get_title(): string {
-		return __( 'Temas desactualizados', 'wpvitals' );
+		return __( 'Outdated themes', 'wpvitals' );
 	}
 
 	/**
@@ -93,15 +93,15 @@ final class ThemesUpdatesCheck extends AbstractCheck implements MultiCheckInterf
 		foreach ( $outdated as $theme_slug => $new_version ) {
 			$results[] = new Result(
 				'theme/' . (string) $theme_slug,
-				__( 'Tema desactualizado', 'wpvitals' ),
+				__( 'Outdated theme', 'wpvitals' ),
 				Result::SEVERITY_WARNING,
 				array(
 					'theme'       => (string) $theme_slug,
 					'new_version' => (string) $new_version,
 				),
 				sprintf(
-					/* translators: 1: slug del tema, 2: nueva versión, 3: URL de actualizaciones. */
-					__( 'El tema %1$s tiene disponible la versión %2$s. Actualízalo desde la pantalla nativa de actualizaciones: %3$s', 'wpvitals' ),
+					/* translators: 1: theme slug, 2: new version, 3: updates URL. */
+					__( 'Theme %1$s has version %2$s available. Update it from the native updates screen: %3$s', 'wpvitals' ),
 					(string) $theme_slug,
 					(string) $new_version,
 					$url
